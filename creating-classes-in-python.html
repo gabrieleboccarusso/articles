@@ -1,0 +1,173 @@
+<p>
+Python's fundamentals topics are array and dictionaries, but the basics in object-oriented programming are the gateway through the understanding of more advanced data structures like trees and others, besides being a vital topic for a software engineer.
+</p>
+<p>
+<h2>what is OOP?</h2>
+beginner programmers don't know about different types of programming and advanced beginner uses functional programming without neither knowing It, so let's summarize what we are talking about.
+</p>
+<p>
+<h3>Procedural programming</h3>
+procedural programming is simply typing all the instructions of your program without using functions or using just one main. It is usually used by complete beginners due to being the most intuitive way to write a program. An example may be:
+</p>
+<pre><code>print('welcome in the program that calculates the area of a square')
+
+loop = 'y'
+
+while (loop == 'y'):
+    side_length = int(input('enter the side of the square: '))
+    side_length *= side_length
+    print (f'the area is: {side_length}')
+    loop = input('do you want to calculate another square? (y/n)')
+    
+print('goodbye...')
+</pre></code>
+<p>
+<h3>Functional programming</h3>
+functional programming is simply dividing your program into sub-programs. This is especially useful for large applications and is the most common type of programming, used mostly by advanced beginners. An example may be:
+<pre><code>print('welcome in the program that calculates the area of a square')
+
+loop = 'y'
+
+while (loop == 'y'):
+    print ('Enter 1 for calculate the area')
+    print('Enter 2 for calculate the perimeter')
+    choice = input('> ')
+    if (choice == '1'):
+        calculateArea()
+    elif (choice == '2'):
+        calculatePerimeter()
+    loop = input('do you want to calculate something else? (y/n)')
+    
+print('goodbye...')
+</pre></code>
+</p>
+<p>
+<h3>OOP in a nutshell</h3>
+Object-oriented programming is a paradigm where data is divided into logical units called objects. An object contains data (variables) and methods (functions). Rarely you'll make an object directly in OOP besides for learning purposes. You'll define classes, which are blueprints for creating objects which are instances of that class.
+</p>
+<p>
+<h2>Creating a class in python</h2>
+To create a class we use the keyword <code>class</code>.
+The keyword <code>pass</code> initializes a void function and, believe me, this will be very useful later on:
+<pre><code>class Animal:
+    pass
+</pre></code>
+To initialize a function we use the keyword <code>__init__</code> as it would be a function for then declare the properties or <em>props</em>, the variables that belong to a class/object.
+in the arguments of init have to put at least one variable called <code>self</code>. The name is optional, but is better to use <em>self</em> to avoid confusion writing the program:
+<pre><code>class Animal():
+    # with self we put the properties that we want into the class
+    def __init__(self, num_legs, wings):
+        # to initialize the props python use that syntax:
+        self.num_legs = num_legs
+        self.wings = wings
+        # this to initialize this variables <em>into</em> the object
+        # we are creating
+</pre></code>
+For creating an object from the class that we have created we have to assign the class as it would be a function with its arguments in it:
+<pre><code>
+wolf = Animal(4, False)
+</pre></code>
+creating an object with properties without inserting them into the object we are creating will lead to an error.
+<br>
+We have now created the object `wolf` which has 4 legs and has not wings:
+<pre><code>
+print(wolf.num_legs)
+</pre></code>
+<pre><code>
+4
+</pre></code>
+</p>
+<p>
+<h2> Adding methods </h2>
+The true power of objects relies on what they can do.
+A method is a function of the object that can change its status:
+<pre><code># re-writing the class animal
+class Animal():
+    def __init__(self, num_legs, wings):
+        self.num_legs = num_legs
+        self.wings = wings
+    
+    # a method of an object has as first argument
+    # self
+    def canFly(self):
+        if self.wings == False:
+            print('this animal can\'t fly')
+        else:
+            print('this animal can fly')
+            
+    def unLuckyEvent(self):
+        print('Something very bad happened to the animal...')
+        self.num_legs -= 1
+        print(f'now it has only {self.num_legs} legs...')
+        
+wolf = Animal(4, False)
+</pre></code>
+<span class="image">
+<img src ="https://drive.google.com/uc?id=1yT2G2iP4-eSsABsI72dXbmyNgwbKAJRL" alt = "using an object's method" >
+</span>
+</p>
+<p>
+<h2>Inheritance</h2>
+creating objects is important to define a hierarchy of classes.
+Inheritance let us build a class on top of another class.
+the class that gets inherited is called a <em>parent class</em>.
+the class that inherits from is called a <em>child class</em>.
+</p>
+<span class="image">
+<img src ="https://drive.google.com/uc?id=1U97zWLprW2n2djSQ2WfG1k0QxY6DjNT7" alt = "using an object's method" >
+</span>
+<p>
+adding the init function to a child class will override the parent's one
+</p>
+<span class="image">
+<img src ="https://drive.google.com/uc?id=1vbkPnWZ7KeZpy_86vw3tTnsXroQoCicu" alt = "using an object's method" >
+</span>
+<p>
+</p>
+<p>
+<h2>The super function</h2>
+in the init function we can also use the <em>super</em> function so that the child class can inherit the parent's properties too
+<pre><code>class Fox(Animal):
+    # in the init we put all the props of the class
+    def __init__(self, num_legs, wings, fur_color):
+        # in the super we put the 
+        # props of the parents alone
+        super().__init__(num_legs, wings)
+        # then we define the props of the child 
+        self.fur_color = fur_color
+
+southernFox = Fox(4, False, 'red')
+</pre></code>
+but we don't have to always write all the props while creating the object, we can just assign a value to them if it will be always the same:
+<pre><code>class Fox(Animal):
+    def __init__(self, num_legs, wings, fur_color):
+        super().__init__(num_legs, wings)
+        self.fur_color = fur_color
+        # some props will be always the same and can't change
+        self.family = 'canidae'
+
+southernFox = Fox(4, False, 'red')
+</pre></code>
+the same is true for methods:
+<pre><code>class Fox(Animal):
+    def __init__(self, num_legs, wings, fur_color):
+        super().__init__(num_legs, wings)
+        self.fur_color = fur_color
+        self.family = 'canidae'
+        
+    # if a child's method has the same name of a parent's method
+    # the parent one will be overwritten
+    def explanation(self):
+        print(f'The fox is a type of {self.family},\nthis in particular has a {self.fur_color} fur')
+</pre></code>
+<span class="image">
+<img src ="https://drive.google.com/uc?id=1gdbwyGGGFQuFPI6gije8Judt58agKAms" alt = "adding a new method to a child class" >
+</span>
+</p>
+<p>
+footnote: assigning a method to a child class with the same name of a method of a parent class will override the parent's method.
+</p>
+<p>
+<h2>Last thoughts</h2>
+You can find this and other python code in my <a href="https://github.com/gabrieleboccarusso/learningPython">github.</a> If you have doubts or critics, feel free to leave a comment.
+</p>

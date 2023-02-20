@@ -1,0 +1,462 @@
+<p>
+    99% of developers begin their path in two ways: either with python or javascript. 
+    <br>
+    These two languages alone are very powerful for countless of reasons. They have both a very strong ecosystem 
+    and can be both used pretty much for anything. But a developer that knows only one language and its 
+    ecosystem pretty well will always have a very narrow point of view regarding software development in general.
+    creating a sort of golden cage.
+</p>
+
+<p>
+    The problem is that focusing too much on a certain ecosystem and even getting a job solely about that, while 
+    certainly increasing your expertise,  will will narrow your overall knowledge of the field.
+    It is for these reasons that is useful to develop cross-discipline expertise, called <i>T shaped expertise</i> too, 
+    so to become a more valuable software engineer overall. The question is, how to do it?
+</p>
+
+<p>
+    Programming languages will always be the basics of the field and knowing the cons and pros of at least 
+    the major ones will give you a great advantage in the decision making process (especially if 
+    you are a senior or if you ever want to be one). 
+    <br>
+    The best one to learn for someone well versed in languages that abstract way too many things like python and javascript, 
+    is java for the following reason:
+    <ul>
+    <li><b>Heavily Object-Oriented</b>: in java everything is a class, thus making the paradigm a core part of the design</li>
+    <li><b>Robust</b>: it offers all of the features of C/C++ pointer but without the memory management</li>
+    <li><b>Architecture neutral</b>: it provides hardware and operative system abstraction so that it runs the same everywhere</li>
+    </ul>
+</p>
+
+<p>
+    To get started in Java an IDE is not required and the first times is better to just use the command line.
+    <br>
+    To download Java you can simply click <a href="https://www.java.com/en/download/">here</a> and follow the 
+    appropriate instructions based on your operative system. 
+    I'm currently using Linux (thus the dollar sign when referring to the cli) but the difference will be minimal at a such early stage.
+    <br>
+    To check if Java is installed correctly you can just check what current version is installed by typing in the command line:
+    <pre><code>$ java -version</code></pre>
+    Which should output something similar to:
+    <pre><code>openjdk version "11.0.13" 2021-10-19
+OpenJDK Runtime Environment (build 11.0.13+8-Ubuntu-0ubuntu1.20.04)
+OpenJDK 64-Bit Server VM (build 11.0.13+8-Ubuntu-0ubuntu1.20.04, mixed mode, sharing)
+</code></pre> 
+    Don't worry if you have download a different version, be it lower or greater, that makes a difference only in 
+    the process of making a project. 
+    <br>
+    Now that everything is set up we can make <code>first.java</code> and write in it a classic hello world:
+    <pre><code>public class First {
+    public static void main(String[] args) {
+        // in java every instruction <i>must</i> end
+        // with a semi-colon (;)
+        System.out.println("hello world");
+    }
+}
+</code></pre>
+    To compile this hello world we have to type <code>$java first.java</code> in the cli.
+    <br>
+    It appears clear from the very first moment what we are getting the hang on. 
+    <br>
+    We create a class and in it we create the <i>main</i> method which has some code inside, 
+    but for now it looks like just a big main function but with extra steps.
+    <br>
+    Before starting with the OOP (Object Oriented Programming) let's see quickly the basics of the language 
+</p>
+
+<h2>Basic syntax</h2>
+<p>
+    Everything that we care about is happening in the <code>main</code> function.
+    <br>
+    Java has two way to output data, using <code>print()</code> and <code>println()</code>. 
+    The first will output everything on the same line while the second will output it on a new line.
+    <pre><code>public class Main {
+    public static void main(String[] args) {
+        System.out.println("first line"); // first line
+        System.out.print("second"); // second line
+        System.out.print(" line\n");
+        /* when outputting in java you can concatenate 
+         things using the "+" operator. Every variable will be
+         automatically converted to a string /*
+         System.out.println("My favorite number is " + 5);
+    }
+}
+</code></pre>
+    it will output
+    <pre><code>first line
+second line
+My favorite number is 5
+</code></pre>
+</p>
+<h2>data types and variables</h2>
+<p>
+    Java has 6 different types of variables
+    <ul>
+        <li><code>String</code>: to store text -> "hello"</li>
+        <li><code>char</code>: to store single characters -> 'a'</li>
+        <li><code>int</code>: to store integers</li>
+        <li><code>float</code>: to store decimals -> 10.5F*</li>
+        <li><code>double</code>: same as float but more precise and space consuming</li>
+        <li><code>boolean</code>: to store <i>true</i> or <i>false</i></li>
+    </ul>
+    To declare a variable we have to define what type it is:
+    <pre><code>float f = 10.5F;
+f = 11.5;
+System.out.println(num); // 11.5
+</code></pre>
+    *every time you declare a float the F at the end is mandatory, otherwise java will interpret it as a double.
+    <br>
+    To make a constant you simply add <code>final</code> before the variable declaration.
+    <pre><code>final int num = 50;
+num = 100; // this will generate an error
+</code></pre>
+    note that concatenating two numbers in a <code>print()</code> or <code>println()</code> function will sum them:
+    <pre><code>int a = 5, b = 15;
+System.out.println("the sum of " + a + " and " + b + " is " + (a + b) );
+</code></pre>
+<pre><code>the sum of 5 and 10 is 15</code></pre>
+</p>
+
+<h2>conditionals & loops</h2>
+<p>
+    Java conditionals, or control flow, and loops are the same as every other language so we'll just go through a quick recap.
+    <ul>
+        <li>equal to: <code>a == b</code></li>
+        <li>not equal/different to: <code>a != b</code></li>
+        <li>less than: <code>a &lt; b </code></li>
+        <li>less or equal than: <code>a &lt;= b</code></li>
+        <li>greater than: <code>a &gt; b </code></li>
+        <li>greater or equal than: <code>a &gt;= b</code></li>
+    </ul>
+
+<h3>If and else</h3>
+    <pre><code>if (<i>condition</i>) {
+    // code
+} else if (<i>condition</i>) {
+    // code
+} else {
+    // code
+}
+</code></pre>
+
+<h3>Switch</h3>
+<pre><code>switch(<i>condition</i>) {
+case <i>a</i>:
+    // code 
+    break;
+case <i>b</i>:
+    // code 
+    break;
+default:
+    // code 
+}</code></pre>
+
+<h3>While loop</h3>
+<pre><code>while (<i>condition</i>) {
+    // code 
+}</code></pre>
+
+<h3>Do while loop</h3>
+<pre><code>do {
+    // code
+} while (<i>condition</i>);
+</code></pre>
+
+<h3>For loop</h3>
+<pre><code>for(int i = 0; i &lt; 10; i++) {
+    System.out.println(i);
+}
+</code></pre>
+</p>
+
+<h2>Functions</h2>
+<p>
+    Due to Java being an entirely object oriented languages, as we have already shortly mentioned, 
+    it doesn't have <i>functions</i> but <b>methods</b>.
+    The difference between functions and methods will become clear on the OOP section, 
+    for now their difference relies only in their names.
+    <br>
+    <pre><code>public class First {
+    // static means that it belongs to the 
+    // class and that is not an object
+    // more on that later
+    static void executeMe(int num) {
+        System.out.println("executed for the " + num + "&deg; time.");
+    }
+    public static void main(String[] args) {
+        executeMe(1);
+        executeMe(2);
+        executeMe(3);
+    }
+}</code></pre>
+
+    In Java to a method is defined using the type of value that it has to return.
+    <pre><code>// this method doesn't return anything
+// so you have to put <i>void</i> in front of it
+static void sayHi() {
+    System.out.println("Hi");
+}
+</code></pre>
+
+<pre><code>// this method returns a float
+static float getTemperature() {
+    float temperature;
+    // calculating temperature
+    temperature = 11.5F;
+    return temperature;
+}
+</code></pre>
+method's arguments follow the same rules
+<pre><code>static int power(int a, int b) {
+    int c = a;
+        for (int i = 1; i &lt; b; i++) {
+        c = c * a;
+    }
+    return c;
+}</code></pre>
+</p>
+
+<h2>
+    OOP
+</h2>
+<p>
+    Object Oriented Programming is a way to organize the code by dividing it into fully functioning 
+    abstract entities: objects.
+    <br>
+    A class is a blueprint for objects and an object contains some data, 
+    <i>attributes</i> and can execute certain behaviors, <i>methods</i>.
+    <br>
+    Let's create a class <i>car</i> to see how this concept works overall.
+    <pre><code>public class First {
+    public static void main(String[] args) {
+        // what we define as object is the instance of a class
+        Car firstCar = new Car();
+        // to access an object properties we use the dot (.) notation
+        // we are now <i>setting</i> the data that it will have to contain
+        firstCar.setColor("black");
+        firstCar.setNameCar("Toyota AE86");
+        firstCar.setSeatbelts(5);
+        
+        // we are now calling an object method
+        firstCar.explainCar();
+    }
+}
+
+class Car {
+    // those are the <i>attributes</i> of the class,
+    // the data that the object will keep stored
+    String color;
+    String nameCar;
+    int numSeatbelts;
+
+    // methods that start with <i>set</i> are used 
+    // to set an attribute and are called <i>setters</i>
+    void setColor(String aColor) {
+        color = aColor;
+    } 
+    
+    /* we can set the data of an object by doing
+        object.attribute = X, or as in this case
+        firstCar.color = "black", but this is a not
+        recommended. Is always better to create a <i>setter</i> method
+    */
+    void setNameCar(String aName) {
+        nameCar = aName;  
+    }
+
+    void setSeatbelts(int num) {
+        numSeatbelts = num;
+    }
+
+    // methods that are used to receive
+    // the attributes of a class are called <i>getters</i>
+    String getColor() {
+        return color;
+    }
+
+    /* getting the attribute directly with
+        var = firstCar.color; would work but,
+        again, is not recommended
+    */
+    String getNameCar() {
+        return nameCar;
+    }
+
+    int getNumSeatbelts() {
+        return numSeatbelts;
+    }
+
+    void explainCar() {
+        System.out.println("This car is a " + color + 
+        " " + nameCar + " with " + 
+        numSeatbelts + " seatbelts.");
+    }
+}
+</code></pre>
+    What we are doing conceptually is creating an <i>instance</i> of a car with the data that 
+    we gave to it and the same function (methods) that we defined in the class.
+    <br>
+    <span class="image">
+        <img src="https://drive.google.com/uc?id=1hcNiuGQQlKCZnlXWBWrtSH2rWeh_jWhX" alt="uml like representation of a class and a instance" class="image main">
+    </span>
+    <br>
+    With OOP, once defined a class, we can create all the instances of it that we may need and refer only to the it when 
+    something goes wrong or we want to change something.
+    By saving this code into a file called <code>car.java</code> and then compiling it with <code>$ java car.java</code>
+    it would output:
+    <pre><code>This car is a black Toyota AE86 with 5 seatbelts.</code></pre>
+    we can now use the same <code>car</code> class to create as many cars as we want.
+    <pre><code>public class First {
+    public static void main(String[] args) {
+        Car firstCar = new Car();
+        Car secondCar = new Car();
+
+        // setting attributes
+        firstCar.setColor("black");
+        firstCar.setNameCar("Toyota AE86");
+        firstCar.setSeatbelts(5);
+
+        secondCar.setColor("yellow");
+        secondCar.setNameCar("Ford Mustang");
+        secondCar.setSeatbelts(5);
+
+        // outputting the two cars
+        firstCar.explainCar();
+        secondCar.explainCar();
+    }
+}</code></pre>
+    output:
+    <pre><code>This car is a black Toyota AE86 with 5 seatbelts.
+This car is a yellow Ford Mustang with 5 seatbelts.
+</code></pre>
+    The reasons we use setters and getters is to make the code more secure and reliable. 
+    By how this code is wrote it would be legal to do something like
+    <pre><code>firstCar.seatbels = 0;</code></pre>
+    we can't let something like this happen.
+</p>
+
+<h3><code>public</code> and <code>private</code></h3>
+<p>
+    by adding the <code>private</code> keyword to the attributes of a class we can prevent undesired situations:
+    <pre><code>class Car {
+    private String color;
+    private String nameCar;
+    private int numSeatbelts;
+    ...
+</code></pre>
+    now something like <code>firstCar.seatbels = 0;</code> would generate an error. Yet, it is still not enough:
+    <pre><code>firstCar.seatBelts = 0; // this would generate an error
+// but this no
+firstCar.setSeatbelts(0); </code></pre>
+    this is why it setter methods are so important. What we have wrote is very incomplete, something better would be
+    <pre><code>public void setSeatbelts(int num) {
+    if (num &lt; 1) {
+        num = 1; // minimum seatbelts
+    } else if (num &gt; 6) {
+        num = 6; // maximum seatbelts
+    };
+    numSeatbelts = num;
+}</code></pre>
+    as you may have noticed we have put <code>public</code> before the method declaration, this because we want our 
+    attributes to not be directly accessible but our setter and getter to be it. Other methods like <code>explainCar</code>
+    do not need any private or public keyword in front of them. As a rule of thumb we put private in front of the attributes 
+    and public in front of the setter and the getters.
+</p>
+
+<h2>Arrays</h2>
+<p>
+    Arrays in Java are nothing special. They begin from 0 and can be created very intuitively:
+    <pre><code>// initializing arrays
+int[] nums = {0, 1, 2, 3, 4, 5};
+String[] names = {"Mark", "John", "Elizabeth"};
+// creating an array of a certain size
+char[] letters = new char[2];
+letters[0] = 'h';
+letters[1] = 'i';</code></pre>
+        in java defining an array without initializing it means that we are making space for that number of data.
+        The same concept applies for objects.
+        <br> 
+        What if we have so much objects that it would be futile to give a name to everyone of them? We can just use an array of objects:
+        <pre><code>public static void main(String[] args) {
+    Car firstCar = new Car();
+    Car secondCar = new Car();
+
+    int size = 3;
+    // right now we are not making space for 3 object
+    // but for 3 references to that object
+    Car[] cars = new Car[size];
+
+    for(int i = 0; i &lt; size; i++) {
+        /*at every space of the array we
+        have to create a new object */
+        cars[i] = new Car(); // without this line we would get an error
+        cars[i].setColor("black");
+        cars[i].setNameCar("Audi Q3");
+        cars[i].setSeatbelts(5);
+        System.out.print((i+1) + ": ");
+        cars[i].explainCar();
+    }
+}</code></pre>
+</p>
+
+<h2>Primitive and reference </h2>
+<p>
+    Data in Java is divided into two types: primitives and references.
+    <br>
+    Primitive are the basic data types that we already saw. An <code>int</code> is a primitive, a <code>char</code> is a primitive.
+    <br>
+    References are those data types that are more complicated and that would occupy a lot of memory, 
+    they are called so because they are not the data, just a reference to it. 
+    A <code>String</code> a reference to an array of <code>char</code>, an <code>array</code>
+    is a reference to references. When we create an array of 5 objects we are creating a reference 
+    to where the actual objects are. The first item of an array is a reference to the reference of the object.
+    <br>
+    When we do something like <code>cars[0].getColor()</code> what we are doing is:
+    <ol>
+        <li>Refer to the space where the array is located</li>
+        <li>Refer to the first item of such array</li>
+        <li>This item is a reference to an object, so refer to it</li>
+        <li>Get the data located in that place</li>
+    </ol>
+    this is incredibly efficient because instead of using and passing entire objects between methods 
+    we are working only with reference to them.
+</p>
+<p>
+    This way there is a twist while confronting two objects.
+    <br>
+    If we want to confront two primitives everything goes well would be enough:
+    <pre><code>int a = 5;
+float b = 5.0F;
+if (a == b) { // true }
+</code></pre>
+    but if we would the same with two objects it would not confront the content of such objects but only their references:
+    <pre><code>public class First {
+    public static void main(String[] args) {
+        Car firstCar = new Car();
+        Car secondCar = new Car();
+        Car thirdCar = firstCar;
+
+        firstCar.setColor("black");
+        firstCar.setNameCar("Toyota AE86");
+        firstCar.setSeatbelts(5);
+
+        secondCar.setColor("yellow");
+        secondCar.setNameCar("Ford Mustang");
+        secondCar.setSeatbelts(5);
+
+        if (firstCar == secondCar) { /* false */ 
+            System.out.println("They refer to two different objects, you'll not see this message");
+        }
+        if (firstCar == thirdCar) {
+            System.out.println("These two reference store the same object address");
+        }
+        
+        firstCar.setColor("yellow");
+        firstCar.setNameCar("Ford Mustang");
+        firstCar.setSeatbelts(5);
+        if (firstCar == secondCar) { 
+            System.out.println("Those are two objects with the same data, but still two different objects"); 
+        }
+    }
+}</code></pre>
+</p>

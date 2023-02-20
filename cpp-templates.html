@@ -1,0 +1,98 @@
+<p>
+Templates are a powerful tool of C++ to make functions more versatile. If you know about c++ you'll already know that to create a function, and a program in general, we should declare all the data types:
+</p>
+<pre><code>float division (float a, float b)
+{
+ return a / b;
+}
+</pre></code>
+<p>
+Declaring all the data types makes the code much faster than other languages such as javascript or python (which lets you declare data types, but is not a spreading practice), but sometimes we may need a function to be more flexibile and cpp let us do it without transforming itself into a dynamic language and without losing efficiency:
+</p>
+<pre><code>template <class generic>
+generic generic_division (generic a, generic b)
+{
+ return a / b;
+}
+</pre></code>
+<p>
+This function will work using both int and float variables (but obviously not with chars and string). When using a template we have to declare the type of the template in <> when using the function:
+</p>
+<pre><code>std::cout << generic_division<int>(9, 3);
+// this will return 3
+</pre></code>
+<p>
+If in the <code><></code> we would put <code>float</code> it would still work returning a <code>float</code> number.
+A complete example will be:
+</p>
+<pre><code>int main()
+{
+    std::cout << "division using traditional function: " << division(4.5, 1.1) << endl;
+    std::cout << "int division using template function: " <<  generic_division<int>(9, 4) << endl;
+    std::cout << "float division using the same template function: " <<  generic_division<float>(4.2, 1.55);
+    return 0;
+}
+</pre></code>
+<p>
+which will output:
+</p>
+<pre><code>division using a traditional function: 4.09091
+int division using template function: 2
+float division using the same template function: 2.70968
+</pre></code>
+<p>
+A function can even not use templates types, relying on overload to understand the parameter type:
+</p>
+<pre><code>int main()
+{
+    // using function overloads
+    std::cout << "float division using function overload: " <<  generic_division(3.8, 2.95) << std::endl;
+    std::cout << "int division using function overload: " <<  generic_division(4, 2);
+    return 0;
+}
+</pre></code>
+<p>
+Which will result in:
+</p>
+<pre><code>float division using function overload: 1.28814
+int division using function overload: 2
+</pre></code>
+<p>
+This is just an example but is always good practice to be explicit when writing code to make it readable and less confusing.
+<br>
+Templates can also include expression of a specific type:
+</p>
+<pre><code>template <class generic, int m = 10>
+generic multiplier (generic number)
+{
+    return number * m;
+}
+</pre></code>
+<p>
+this code will work as a normal function:
+</p>
+<pre><code>int main()
+{
+    std::cout << "using default parameter: " <<multiplier<int>(10) << std::endl;
+    std::cout << "using different parameter: " <<multiplier<int, 11>(10);
+    return 0;
+}
+</pre></code>
+<p>
+result:
+</p>
+<pre><code>using default parameter: 100
+using different parameter: 110
+</pre></code>
+<p>
+Templates are a very useful feature of the language and can be used in the same way with classes too.
+<br>
+If you go on the web and see something like:
+</p>
+<pre><code>#include <array>
+array<int, 6> my_arr;
+</pre></code>
+<p>
+you'll understand how powerful and versatile the templates can be.
+<br>
+you can find the full gist with all the examples <a href = "https://gist.github.com/gabrieleboccarusso/6bcb4d36f223a39260fcfec5e0d31393">here</a>
