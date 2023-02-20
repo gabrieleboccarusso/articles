@@ -1,0 +1,62 @@
+<h1>Angular</h1>
+
+<p>
+ Angular is a frontend framework for creating medium and enterprise level Single Page Applications (S.P.A.)
+ <br>
+ Frameworks can be generally divided into two main categories:
+ <ul>
+  <li>Configuration over convention</li>
+  <li>Convention over configuration</li>
+ </ul>
+</p>
+<p>
+ Configuration over convention means that a framework comes pre-packed only with the bare essential. An example of this is React. React is easy to approach and has an easier learning courve because doesn't come with many things already configured. If a react application needs state management one's has to install redux or flux. Same goes with routing. This makes it easier to learn because you are learning only react and this other libraries can be learned later when there is the need.
+</p>
+<p>
+ Convention over configuration frameworks are instead already pre packed with everything and they are more difficult to learn because you have to approach everything at the same time. Angular is one of those. It comes with pre-built routing and state management. It uses TypeScript instead of JavaScript which is an additional roadblock for a developer who hasn't used much static languages. This, apparently negative, traits make this kind of framework more suitable for very large application. Once one is accustomed with them it becames very easy to speed up the developing process and build something scalable. The aim of Angular is to have scalability and production and development as its core to deploy robust applications that can be used by millions of users.
+</p>
+
+<h2>The angular CLI</h2>
+<p>
+ The angular CLI is the official Angular tool to configure correctly and hassle free all the tools needed to develop an application. It offers many capabilities through the cli and is used for handle how the various tools are angular uses, TypeScript, SASS, Babel and other work together. The most common use cases are:
+ <ul>
+  <li>Build a project</li>
+  <li>Test it</li>
+  <li>Deploy it</li>
+  <li>Create reusable components</li>
+ </ul>
+ The CLI is, in short, a bundling tool to connect everything together.
+ <br>
+ All the needed information about the the CLI tool can be found in the official documentation <a href="https://angular.io/cli">here</a>.
+ <br>
+ The angular CLI can be installed through NPM with
+ <pre><code>
+npm install -g @angular/cli
+ </code></pre>
+ Now that it is installed the keyword <code>ng</code> will perform any needed angular related command
+</p>
+
+<h2>Getting started</h2>
+<h3>Creating a new project</h3>
+<p>
+ Starting a new angular project is very easily done with the angular CLI.
+ <br>
+ By typing <code>ng new</code> we can create a project and by adding <code>--help</code> at the end of every <code>ng</code> command you can see every possible flag option for it.
+ <br>
+ When creating a new project two questions will be asked by angular:
+ <ol>
+  <li>Would you like to add Angular routing?</li>
+  <li>Which stylesheet format would you like to use?</li>
+ </ol>
+ The first question, obviously, adds routing to the application. Based on your needs may or may not needed. For a beginner is better to select no and to install it later if needed. The second questions prompts use to four different choices between: SASS, LESS, SCSS and CSS. For a beginner normal CSS will be more than enough. 
+ <br>
+ After those two options the bootstrapping of the project will start and once completed you'll already have a working application.
+</p>
+
+<h2>Upgrading Angular</h2>
+<p>
+ Angular receves a new version every six months. To stay up to date and be sure that you're following the lastet relases the angular developer made the <a href="https://update.angular.io/">angular update guide</a> with all the steps needed to successfully migrate from one version to the other.
+</p>
+<p>
+ Angular CLI also offers a way to update easily. Between every new release there is a command that automatically updates every component of the project. To upgrade from the version 14 to 15 the command is <code>ng update @angular/core@15 @angular/cli@15</code>. Be aware that this command can be used only to migrate to the next version. This means that you can't migrate from 13 to 15 but from 13 to 14 and finally 15 is possible. This command is present, with the related version, on the angular update guide. Follow the website instructions to be aware of any possible needed change.
+</p>
