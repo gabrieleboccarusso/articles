@@ -1,0 +1,178 @@
+<p>
+    The only way to change a web page with new informations is by refreshing the page and working on the requestbut this way is too rude and inefficient. A better way to achieve the same result but with maximum efficiency and professionality is the <strong>AJAX protocol</strong>.
+</p>
+
+<p>
+    AJAX stands for <em>Asynchrouns javascript and XML</em>, and, despite the name, can bring any kind of new data in a web page without the need to refresh it by connecting to a database or to an API.
+</p>
+
+<p>
+    AJAX does essentially two important things:
+    <ul>
+        <li>Connect with the server/API</li>
+        <li>Retrieve the data</li>
+        <li>Change the web page</li>
+    </ul>
+    Everyone of this step is at our complete discretion being a technique that offers great flexibility in our ends and a lot of abstraction in how it executes the actual operations.
+</p>
+
+<p>
+    This technique is used through a javascript object called the <em>XMLHttpRequest</em>:
+<pre><code>const ajax = new XMLHttpRequest();
+</code></pre>
+</p>
+
+<p>
+    now that we have the object we need to assign a function to the <em>onreadystatechange</em> method that will be called everytime the internal state of the object will change:
+<pre><code>ajax.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200 {
+        // execute what"s here
+    }
+}
+</code></pre>
+    Everything inside the assigned function should always be inside an <em>if statement</em>. 
+    <br> 
+    The first thing to check is the <strong>readyState attribute</strong> of the object. 
+    <br> 
+    This attributes can have five different values, ranging from 0 to 4, and 4 means that the operations is fully complete. <br> For the reference you can go <a href="https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest/readyState">here</a>.
+</p>
+
+<p>
+    The <strong>status attribute</strong> refers to the HTTP protocol: <em>200</em> means that was successful, 404 that what was requested was not found and so on. 
+    <br> For the complete documentation you can go <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Status">here</a>.
+</p>
+
+<p>
+    If <em>readyState</em> and <em>status</em> are on 4 and 200 that means that everything was successful and is in this state that you want to operate any change to the webpage.
+</p>
+
+<p>
+    Now that everything is set we need only to retrieve the data from the server. with the <em>send</em> function we initialize the request and with the <em>send</em> one we execute the data:
+<pre><code>url= "https://myapi.com";
+ajax.open("GET", url, true);
+ajax.send();
+</code></pre>
+    The <strong>open</strong> method accept three parameters:
+    <ol>
+        <li>
+            The request method, in most cases we want to <em>get</em> something
+        </li>
+        <li>
+            The string that represents the URL to send the request to
+        </li>
+        <li>
+            If the request must be asynchronous, which is obviously <code>true</code>
+        </li>
+    </ol>
+</p>
+
+<p>
+the send method is the one that performs all the underline operations needed to perform the changes to the web page.
+</p>
+
+<p>
+Integrating AJAX with our backend language of choice is very easy, by using a web server to host our website and PHP we can set the call to a determined script that performs the operations basically creating our own API.
+</p>
+
+<p>
+    Please note that without a basic knowledge of PHP you"ll not be able to fully comprehend the next code.
+</p>
+
+<p>
+    Let"s create a simple webpage that dynamically creates and updates a table.
+    The only code that we need in our html file is:
+<pre><code>&lt;label for="cols"&gt;rows:&lt;/label&gt;
+&lt;input type="text" id="cols" name="cols" onkeyup="SetCols(this.value)" onload="this.value="""&gt;
+&lt;label for="rows"&gt;cols:&lt;/label&gt;
+&lt;input type="text" id="rows" name="rows" onkeyup="SetRows(this.value)"&gt;
+&lt;span id="out"&gt;&lt;/span&gt;
+</code></pre>
+    This code define three simple things:
+    <ul>
+        <li>
+            an input field for the column of the table
+        </li>
+        <li>
+            an input field for the rows of the table
+        </li>
+        <li>
+            a span that will contain the output of the AJAX request, our table
+        </li>
+    </ul>
+</p>
+
+<p>
+    Before explaining the actual code let"s see the variable that we are going to use:
+<pre><code>
+// before calling our backend we have to first polish the data
+// that we are going to send.
+// php accepts everything as a request
+// our variables are just pieces of the request
+// that will then be concatenated 
+let cols = "";
+let rows = "";
+let script = "";
+let output = document.getElementById("out");
+
+let ajax = new XMLHttpRequest();
+ajax.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+        // we receive from the script a table in html
+        // and then we replace it with the old one
+        output.innerHTML = this.responseText;  
+    }
+}
+</code></pre>
+</p>
+
+<p>
+    As we see in the HTML code, everytime we change the value of the input field the dedicated function that sets the rows and the columns get called, let"s see them:
+<pre><code>
+function SetCols(ncols) {
+    cols = "cols=" + ncols;
+    if (rows != "") {
+        CreateTable();
+    }    
+}
+
+function SetRows(nrows) {
+    rows = "rows=" + nrows;
+    if (cols != "") {
+        CreateTable();
+    } 
+}
+</code></pre>
+The functions just sets the rows or the cols variable in a way that PHP understands it and if the other one is not void it calls the `createtable` function, which: 
+<pre><code>function CreateTable() {
+    script = "make_ajax_table.php?" + cols + "&" + rows;
+    // console.log(script);
+    ajax.open("GET", script, true);
+    ajax.send();
+}
+</code></pre>
+    what we are sending to the PHP script is just a line with a request that contains the <code>rows</code>and <code>cols</code> variables. </p> <p> Now let"s see the actual PHP script
+<pre><code>$cols = $_REQUEST["cols"];
+$rows = $_REQUEST["rows"];
+
+try {
+    $cols = (int)$cols;
+    $rows = (int)$rows;
+}  
+catch (exception $e) {
+    echo "hi, something strange happened. &lt;br&gt; Let the developers know of this error " . $e;
+} 
+finally {
+    echo "&lt;table border=1&gt;";
+    for($i = 1; $i &lt; $cols+1; $i++)
+    {
+        echo "&lt;tr&gt;";
+        for ($j = 1; $j &lt; $rows+1; $j++)
+        {
+            echo "&lt;td&gt;" . $j * $i . "&lt;/td&gt;";
+        }
+        echo "&lt;/tr&gt;";
+    }
+    echo "&lt;/table&gt;";
+}
+</code></pre>
+Everything that we echo out get transposed as a string and then put into the inner HTML of the span tag. Let"s see the final result: <img src="https://dev-to-uploads.s3.amazonaws.com/uploads/articles/uti12yxqsjn0fgkgt78i.gif" alt="table that changes height and width based on user input" class="image main"> </p> <p> For the full code you can check the github gist <a href="https://gist.github.com/gabrieleboccarusso/5b36631e44c7fcbeed1233f92ff86aec">here</a> </p>
