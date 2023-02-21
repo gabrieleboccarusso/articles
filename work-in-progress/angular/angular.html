@@ -30,9 +30,7 @@
  All the needed information about the the CLI tool can be found in the official documentation <a href="https://angular.io/cli">here</a>.
  <br>
  The angular CLI can be installed through NPM with
- <pre><code>
-npm install -g @angular/cli
- </code></pre>
+ <pre><code>npm install -g @angular/cli</code></pre>
  Now that it is installed the keyword <code>ng</code> will perform any needed angular related command
 </p>
 
@@ -59,4 +57,15 @@ npm install -g @angular/cli
 </p>
 <p>
  Angular CLI also offers a way to update easily. Between every new release there is a command that automatically updates every component of the project. To upgrade from the version 14 to 15 the command is <code>ng update @angular/core@15 @angular/cli@15</code>. Be aware that this command can be used only to migrate to the next version. This means that you can't migrate from 13 to 15 but from 13 to 14 and finally 15 is possible. This command is present, with the related version, on the angular update guide. Follow the website instructions to be aware of any possible needed change.
+</p>
+
+<h2>The default server</h2>
+<p>
+ To start your application in development and see how it behaves and to test it angular comes with a preconfigured server. This server is useful for development purposes but is not suitable for production and any significant amount of traffic will break it easily. The server can be started with the command
+ <pre><code>ng serve</code></pre>
+ The command will generate the following output:
+ <b>insert here first image</b>
+ Now the application will be available on your machine on the port number 4200 (this port is the angular default) and visiting the URL <code>localhost:4200</code> in your browser the default angular app will be rendered and it will look similar to this:
+ <b>insert here second image</b>
+ to stop the built-in server from running press <code>CTRL + C</code>
 </p>
