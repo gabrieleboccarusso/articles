@@ -15,7 +15,7 @@
 <h2>Type Annotations</h2>
 <p>
  typescript adds type to JavaScript. this is its main feature. Let's see a basic function in TypeScript:
- <code><pre>
+<code><pre>
 function add(a: number, b: number) {
  console.log(a + b);
 }
@@ -24,9 +24,9 @@ function add(a: number, b: number) {
 add('2', 2);
 // this not
 add(2, 2);
- </pre></code>
+</pre></code>
  it is possible to force a return type to the function itself too:
- <code><pre>
+<code><pre>
 // will give an error because it needs to return a number
 // function add(a: number, b: number): number {
 // console.log(a + b);
@@ -40,15 +40,15 @@ function improvedAdd(a: number, b: number): number {
 // add('2', 2);
 // this not
 console.log('result: ' + improvedAdd(2, 2));
- </pre></code>
+</pre></code>
  If you run the last piece of code with <code>npx tsc file.ts</code> there will be no output but now a new file has been created in the same directory: <code>file.js</code>.
  <br>
  Running <code>node file.js</code> will output
- <code><pre>
+<code><pre>
 result: 4
- </pre></code>
+</pre></code>
  Taking a look at <code>file.js</code> we'll see this:
- <code><pre>
+<code><pre>
 // will give an error because it needs to return a number
 // function add(a: number, b: number): number {
 // console.log(a + b);
@@ -60,17 +60,17 @@ function improvedAdd(a, b) {
 // add('2', 2);
 // this not
 console.log('result:' + improvedAdd(2, 2));
- </pre></code>
+</pre></code>
  Although this is the same exact code using typescript in a large application will be immensely useful to <i>ensure that your code will do what you want it does</i>.
 </p>
 
 <h2>Union Types</h2>
 <p>
  By default TypeScript lets a variable of a specific type but it is also possible to add multiple types through the pipe operator: <code>|</code>.
- <code><pre>
+<code><pre>
 // this will give no error
 let middle_name: string | null = null;
- </pre></code>
+</pre></code>
  With the pipe operator we can infer multiple types not just to a variable but to anything: functions, arrays, objects, etc.
  <br>
  There is also the <code>any</code> type. This type lets the container of the data be anything possible and is generally not a good practice because nullifies the power of typescript although it may be useful for certain kind of unusual operations.
@@ -79,22 +79,22 @@ let middle_name: string | null = null;
 <h2>Arrays</h2>
 <p>
  In TypeScript arrays are usually set to <code>any</code> by default but with a bit more logic this is easily avoided and can show how powerful it can really be:
- <code><pre>
+<code><pre>
 // this is of type any[]
 let arr = [];
 
 // if we fill it it gets automatically a type
 // this is of type string[]
 let arr2 = ["myString", "anotherString"];
- </pre></code>
+</pre></code>
  By using multiple types in an array it will by default get set on those type with the pipe operator:
- <code><pre>
+<code><pre>
 // under the hood
 // this is the same
 let anotherArr = ["a string", 67];
 // as
 let anotherArr: (string | number)[] = ["a string", 67];
- </pre></code>
+</pre></code>
  In the last line of code the pipe operator has been used is a parenthesis. This allows an overall cleaner code. For an array doing <code>arr: (string | number)[]</code>or <code>arr: string[] | number[]</code> is the same.
 </p>
 
@@ -105,7 +105,8 @@ let anotherArr: (string | number)[] = ["a string", 67];
 const person = {
  age: 10, // type is number
  name: "John" // type is age
-}</pre></code>
+}
+</pre></code>
  we can also declare an object as a variable so to define its properties:
  <code><pre>
 const person: {
@@ -114,9 +115,10 @@ const person: {
 } = {
  age: 10,
  name: "john"
-}</pre></code>
+}
+</pre></code>
  we can also have undefined types which are optional. They are declare with the <code>?:</code> keyword:
- <code><pre>
+<code><pre>
 const person: {
  age: number,
  name: string
@@ -135,7 +137,7 @@ let people: {}[];</pre></code>
 <h2>Interfaces & Classes</h2>
 <p>
  An interface can be thought as a way to define an object annotations. Let's create an interface for a person:
- <code><pre>
+<code><pre>
 // it is now possible to create
 // objects of type person
 interface person {
@@ -192,7 +194,7 @@ class Mechanic implements person {
  Generics are a way to write classes, functions and other things in a way that is both flexible and reusable. A generic is a component data which is designed to be specialized later. If there is the need to store in a custom class a specific kind of data type it is possible to make it reusable by using a generic type.
  <br>
  Creating a class to store some data type there would be the need to either use <code>any</code> or to write it again but differently. With a generic it's possible to do it just one time and to specialize it later:
- <code><pre>
+<code><pre>
 class Store<T> {
  data: T[] = [];
 
@@ -221,6 +223,6 @@ storeStrings.add(10);
 const storeNumbers = new Store<number>();
 storeNumbers.add(40);
 storeNumbers.add(60);
- </pre></code>
+</pre></code>
  Although generics are not used often there are still a powerful tool to make flexible code when needed.
 </p>
