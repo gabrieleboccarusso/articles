@@ -132,4 +132,95 @@ let people: {}[];</pre></code>
  To tidy things up TypeScript uses <i>interfaces</i>.
 </p>
 
-<h2>Interfaces</h2>
+<h2>Interfaces & Classes</h2>
+<p>
+ An interface can be thought as a way to define an object annotations. Let's create an interface for a person:
+ <code><pre>
+// it is now possible to create
+// objects of type person
+interface person {
+ age: number,
+ name: string
+ driver_license?: string
+}
+
+const person1: person = {
+ age: 10,
+ name: "john"
+}
+
+const person2: person = {
+ age: 22,
+ name: "Mark",
+ driver_license: "scooter"
+}</pre></code>
+Interfaces are useful to create custom data types. Creating a an array of <code>person</code> objects can now be done in a cleaner way:
+<code><pre>
+let people: person[] = [];
+
+people.push(person1);
+people.push(person2);</pre></code>
+Interfaces are very useful but if we want to make something more sophisticated then we need classes.
+<br>
+Classes are blueprints of objects and they are useful to add behavior to them. A class can <code>implement</code> an interface to define certain behaviors. We can for example create two different classes but with both of them implementing the same interface. This will assure that although the classes are different they share certain specific characteristics.
+<code><pre>
+interface person {
+ age: number,
+ name: string
+ hairColor?: string,
+ // interfaces can also define a function signature
+ work: () => void;
+}
+
+class Mechanic implements person {
+ age;
+ name;
+ hairColor;
+
+ work(): void {
+  console.log("fixin a car");
+ }
+}
+</pre></code>
+ Any class that implements the <code>person</code> interface will have to implement the same variables, called <code>attributes</code>, and the same functions signatures, called <code>methods</code>.
+ <br>
+ In a class every attribute and method can be either<code>private</code> or <code>public</code>. If private it can only be used inside the class itself while a public one can be used outside of it. In TypeScript everything in a class is public by default.
+</p>
+
+<h2>Generics</h2>
+<p>
+ Generics are a way to write classes, functions and other things in a way that is both flexible and reusable. A generic is a component data which is designed to be specialized later. If there is the need to store in a custom class a specific kind of data type it is possible to make it reusable by using a generic type.
+ <br>
+ Creating a class to store some data type there would be the need to either use <code>any</code> or to write it again but differently. With a generic it's possible to do it just one time and to specialize it later:
+ <code><pre>
+class Store<T> {
+ data: T[] = [];
+
+ add(item: T) {
+  this.data.push(item);
+ }
+
+ removeFirst(): T | undefined{
+  // return undefined if the array is empty
+  // otherwise return the removed element
+  return this.data.shift();
+ }
+
+ remove(): T | undefined {
+  return this.data.pop();
+ }
+}
+
+const storeStrings = new Store<string>();
+storeStrings.add("dog");
+storeStrings.add("cat");
+// this would give an error
+storeStrings.add(10);
+
+// to store numbers
+const storeNumbers = new Store<number>();
+storeNumbers.add(40);
+storeNumbers.add(60);
+ </pre></code>
+ Although generics are not used often there are still a powerful tool to make flexible code when needed.
+</p>
