@@ -69,3 +69,82 @@
  <b>insert here second image</b>
  to stop the built-in server from running press <code>CTRL + C</code>
 </p>
+
+<h2>Compilations & Platforms</h2>
+<p>
+ ALl of the code we write in Angular using TypeScript will be compiled to JavaScript. The angular's feature that make it the framework that it is are not native to JavaScript and will be converted into it and to do so angular compiles its code. There are two ways to compile our code and although the result will always be the same the how changes drastically due to how it impacts performance.
+</p>
+
+<h3>Just In Time (JIT) compilation</h3>
+<p>
+ This compilation strategy angual will compile the TypeScript code and once finished the browser will download everything. The compiler too.
+ <br>
+ Once that everything is downloaded the project will still divided into various javascript components and the compiler will work so that the browser can understand the code and once the process is finished the application will start to run.
+</p>
+
+<h3>Ahead Of Time (AOT) compilation</h3>
+<p>
+ In AOT compilation the code of the whole application will be compiled into javascript (this passage happens both in JIT and AOT compilations) and once the conversion will be finished it will finish to compile the various components of the application so that everything is ready and doesn't need additional loading time when the browser finishes to download the application. Additionally, the compiler doesn't get downloaded with this compilation. 
+</p>
+
+<h3>Compilations comparison</h3>
+<p>
+ <table>
+  <tr>
+   <th>Angular</th>
+   <th>JIT</th>
+   <th>AOT</th>
+  </tr>
+  <tr>
+   <td>Size</td>
+   <td>Larger size: needs to load the compiler too</td>
+   <td>Smaller size: everything is already fully compiled</td>
+  </tr>
+  <tr>
+    <td>Time</td>
+    <td>Slower: the compiler needs to run in the browser</td>
+    <td>Faster: everything is ready to be run</td>
+  </tr>
+  <tr>
+   <td>Errors</td>
+   <td>Errors will be catched in the browser</td>
+   <td>Error will be catched in the server</td>
+ </tr>
+ </table>
+ AOT compilation is relatively new to the angular ecosystem with it being introduced with Angular 9 and it become the recommended compilation. JIT is still used to maintain compatibility with the old systems that still use it.
+</p>
+
+<h3>Platforms</h3>
+<p>
+ A platform is how Angular understands the environment and it determines the compilation strategy. <code>platformBrowserDynamic</code> uses JIT and <code>platformBrowser</code> uses AOT.
+ <br>
+ By default Angular is going ro recommend using <code>platformBrowserDynamic</code>. This because the due to how the two platform functions are made they can be used interchangeably. It is recommended to use the first so to be able to switch to JIT compilation but angular, by default, will use AOT.
+ <br>
+ To load a platform just the import in the <code>main.ts</code> file is needed:
+<code><pre>
+import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
+platformBrowserDynamic();
+</pre></code>
+ This code loads just the platform but not the application. To load the application angular creates a default module. A module is a piece of code that connects thing together. Going into the project at <code>src/app/app.module</code> we can see the basic module that connects the whole application together.
+ <br>
+ To bootstrap the application this module needs to be loaded into the platform:
+<code><pre>
+import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
+
+// import the app module
+import { AppModule } from './app/app.module';
+
+platformBrowserDynamic().bootstrapModule(AppModule);
+</pre></code>
+ This code loads the application which will be now visible, by default, on <code>localhost:4200</code> but the method <code>bootstrapModule()</code> returns a promise. This gives the possibility to log any error. The default way would be to simply log them:
+<code><pre>
+import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
+
+import { AppModule } from './app/app.module';
+
+
+platformBrowserDynamic().bootstrapModule(AppModule)
+ .catch(err => console.log(err));
+</pre></code>
+ Creating a new angular application this piece of code will be exactly what is in the <code>main.ts</code> and although it's already there and works it's important to know how it works under the hood
+</p>
