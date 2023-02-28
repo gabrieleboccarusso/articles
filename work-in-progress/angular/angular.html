@@ -1,7 +1,7 @@
 <h1>Angular</h1>
 
 <p>
- Angular is a frontend framework for creating medium and enterprise level Single Page Applications (S.P.A.)
+ Angular is a frontend framework for creating medium and enterprise level Single Page Applications (S.P.A.) that uses TypeScript instead of javascript.
  <br>
  Frameworks can be generally divided into two main categories:
  <ul>
@@ -146,5 +146,23 @@ import { AppModule } from './app/app.module';
 platformBrowserDynamic().bootstrapModule(AppModule)
  .catch(err => console.log(err));
 </pre></code>
- Creating a new angular application this piece of code will be exactly what is in the <code>main.ts</code> and although it's already there and works it's important to know how it works under the hood
+ Creating a new angular application, this piece of code will be exactly what is in the <code>main.ts</code> and although it's already there and works it's important to know how it works under the hood
+</p>
+
+<h2>Thinking in Angular</h2>
+<p>
+  The building blocks of angular are <b>components</b>. Components are organized into <b>modules</b>, pieces of code that collects components in a functional set to connect everything together. As we already saw every application has, by default, a root module that bootstraps the project, it can be found in <code>app.module.ts</code> under the <code>/src</code> folder and is called <code>AppModule</code>.
+  <br>
+  A module can import other modules to export their functionalities and to make them available to other modules too. An example is the <code>Router</code> module that enables the changes of components based on the URL.
+</p>
+<p>
+  A component defines a <i>view</i>, a section of the UI that renders specific UI elements and is defined using HTML templates and through property bindings can display the component data and react to triggers like buttons and alikes while the component handles the data and the logic.
+</p>
+<p>
+  A component can use a <i>service</i>. A service is a class used to share resources and behaviors across components like HTTP requests and authentication. They can be injected as dependencies through dependency injection.
+</p>
+
+<h3>Components</h3>
+<p>
+  https://angular.io/guide/architecture#components
 </p>
