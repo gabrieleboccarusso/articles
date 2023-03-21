@@ -1,0 +1,60 @@
+<ol>
+ <li>installing docker
+   <ol>
+    <li>ubuntu (linux)</li>
+    <li>Windows</li>
+    <li>MacOs</li>
+   </ol>
+ </li>
+</ol>
+
+<p>
+ Docker is a way to deploy software by storing it in lightweight packages.
+ <br>
+ to check if docker is correctly installed run on the cli the command <code>docker -v</code>
+</p>
+
+<h2>What is <i>DevOps</i>?</h2>
+<p>
+ Docker is getting everyday more relevant into the world of DevOps and to fully understand it is important to make clear what DevOps is and what role plays into the modern software development scene.
+ <br>
+ <i>Dev</i> refers to software development and <i>Ops</i> to the related operations regarding the deployment, the release and the monitoring of the performance. DevOps bridges the gap between the development and the release of a software using a set of precise practices aimed to improve the workflow between quality assurance, continous development and continous integration of the software throught its whole lifecycle.
+</p>
+<p>
+ Make an image similar to <a href="https://upload.wikimedia.org/wikipedia/commons/0/05/Devops-toolchain.svg">this one</a>
+</p>
+
+<h2>What is Docker?</h2>
+<p>
+ Docker is a set of products that use virtualization at the Operative System level to delived software in packages called containers. A docker container contains mainly two things:
+ <ul>
+  <li>Software source code</li>
+  <li>Operative System files (binaries and libraries)</li>
+ </ul>
+ These two things, although being in the same container, are throughly separated so to not interfere with each other or other softwares. If such need would eventually arise Docker offers way and tools to do it.
+ <br>
+ image 2
+</p>
+<p>
+ The containers are the actual instances of an application. The source code to create a together (as to put all the different pieces together) is container in a file called <code>Dockerfile</code> and that is referenced as an <b>image</b>. An image is the source code of a container and a container is an instance of an image.
+</p>
+
+<h2>Docker's benefits</h2>
+<p>
+ Containerizing an application provides multiple benefits. First of them is to make an application agnostic from the computer where it is develop and from the server. With the container already having all that is needed to run the application there is the certainty that it will run the same on the development machine, on the server and on every different platform it is used thus being indipendent from the outside environment. 
+</p>
+<p>
+ If a software needs a dependency as, for example, a specific version of a database, there will be no problem and difference between deployment and production as a container can also refer to a specific version of a dependency so to be sure that in any case the used libraries don't get mixed up between different machines.
+ <br>
+ make image illustrating this concept
+</p>
+<p>
+ To wrap an application into a container scaling becomes easier as through creating multiple instances of the same image there is the possibility to create a load balancer that redirects the requests and if one container gets too much traffic or dies unexpectedlly due to an error the whole system will not go down and it will be easy to check the performance and metrics of that specific container.
+ <br>
+ make image to illustrate the concept
+</p>
+
+<h2>Getting Started</h2>
+<p>
+
+</p>
