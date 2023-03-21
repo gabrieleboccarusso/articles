@@ -126,6 +126,18 @@ CONTAINER ID   IMAGE         COMMAND   CREATED        STATUS                    
    gets an image from the image registry and downloads it online if there isn't one available  locally
   </dt>
   <dt>
+   <code>docker container run *image name*</code>
+  </dt>
+  <dd>
+   creates and runs a new container based on an image. <br> the <code>-d</code> flag runs it in detached state
+  </dd>
+  <dt>
+   <code>docker container stop *container name or id*</code>
+  </dt>
+  <dd>
+   stops a running container
+  </dd>
+  <dt>
    <code>docker image rm *image name*</code>
   </dt>
   <dd>
@@ -144,16 +156,16 @@ CONTAINER ID   IMAGE         COMMAND   CREATED        STATUS                    
    Lists all containers, both running and exited
   </dd>
   <dt>
-   <code>docker container rm *image id*</code>
-  </dt>
-  <dd>
-   deletes a container by its id. It can also take the first few chars of the id and work anyway giving a warning only if there are more containers with an id that <i>start</i> the same. <br>Can accept multiple arguments
-  </dd>
-  <dt>
    <code>docker container stop *container name or id*</code>
   </dt>
   <dd>
    Stops a running container
   </dd>
- </dl> 
+  <dt>
+   <code>docker container rm *image id*</code>
+  </dt>
+  <dd>
+   deletes a container by its id. It can also take the first few chars of the id and work anyway giving a warning only if there are more containers with an id that <i>start</i> the same. <br>Can accept multiple arguments
+  </dd>
+ </dl>
 </p>
