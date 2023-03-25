@@ -169,3 +169,11 @@ CONTAINER ID   IMAGE         COMMAND   CREATED        STATUS                    
   </dd>
  </dl>
 </p>
+
+<p>
+   Docker allows much more than that. containerization works with everything and by pulling from the internet the image of an operative system it will be possible to run the <code>tty</code> interface with the <code>-t</code> flag. The sole problem is that although this will output the interface it will still not send any of the inputs commands. To achieve it the flag <code>-i</code> will have to be put along so to actually send commands and receive output successfully. 
+   <br>
+   The flag <code>--name</code> allows for a custom name for a container. With a custom name will also be easier to stop or continue a container. Typing <code>docker pause *container name*</code> will stop the container with the specifed name and <code>docker unpause *container name*</code> will make it run again starting from where it was interrupted. 
+   <br>
+   Considering that containers are also piece of software that run in a fixed environment you can also communicate with them while they run. For this there is the flag <code>--exec</code>. An example use could be to have a running instance of a database and use the flag to query some specific data and to run additional commands to a running instance of an operative instance. What if we have deployed our software in a container with a specific linux distribution and we want to check something while is running? A very simple <code>docker exec -it *container name* bash</code> will open the bash command line in the terminal and with the <code>-it</code> flag it will be possible to interact with it.
+</p>
