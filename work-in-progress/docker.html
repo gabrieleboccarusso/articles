@@ -176,4 +176,21 @@ CONTAINER ID   IMAGE         COMMAND   CREATED        STATUS                    
    The flag <code>--name</code> allows for a custom name for a container. With a custom name will also be easier to stop or continue a container. Typing <code>docker pause *container name*</code> will stop the container with the specifed name and <code>docker unpause *container name*</code> will make it run again starting from where it was interrupted. 
    <br>
    Considering that containers are also piece of software that run in a fixed environment you can also communicate with them while they run. For this there is the flag <code>--exec</code>. An example use could be to have a running instance of a database and use the flag to query some specific data and to run additional commands to a running instance of an operative instance. What if we have deployed our software in a container with a specific linux distribution and we want to check something while is running? A very simple <code>docker exec -it *container name* bash</code> will open the bash command line in the terminal and with the <code>-it</code> flag it will be possible to interact with it.
+   <br>
+   Now that a lot has been put on the plate is time to see things in a more practical way.
 </p>
+
+<h2>Using containers</h2>
+<p>
+   Let's run a in a container a lightweight linux distribution: <a href="https://alpinelinux.org/">alpine</a>. When an image is not present locally docker will consult the official docker image registry at <a href="https://hub.docker.com/">docker hub</a>. There are, of course, other image registries like <a href="https://quay.io/">quay</a>.
+   IMAGE 4
+   Running <code>docker run alpine</code> will produce no output and although the container will be create it will immediately stop running
+   IMAGE5
+   Adding the <code>-it</code> the container will keep running and you'll be able to interact with it till you don't shut it down. By itself the containerized OS will open and will be possible to use it.
+   IMAGE6
+   to exit the container in this case the keyword <code>exit</code> will terminate the terminal and along with it the container too.
+   IMAGE7
+</p>
+
+<h2>Building images</h2>
+
