@@ -193,4 +193,62 @@ CONTAINER ID   IMAGE         COMMAND   CREATED        STATUS                    
 </p>
 
 <h2>Building images</h2>
+<p>
+   Every docker image is divided into <i>layers</i> that gets downloaded simultaneously if an image is collected from the web.
+   IMAGE 8
+   An image is built using a <b>Dockerfile</b>, a file which containers all the instructions regarding the various layers and behavior of the containers that will be instantiated. Docker can copy files, run commands on them and perform a wide array of actions into the container.
+   <br>
+   With a bash script called <code>hello.sh</code> with the following code
+<pre><code>echo "Hi from a Docker container!"
+</code></pre>
+   and in the same directoy a file called simply <code>Dockerfile</code> with the following code it will be possible to containerize the file as it would be a fully blown application.
+<pre><code># starting from the alpine image with tag 3.13 (which contains alpine 3.13)
+FROM alpine:3.13
 
+# set the '/app' directory as the working one
+WORKDIR /app
+
+# copy 'hello.sh' into the working directory (so '/app')
+COPY hello.sh .
+
+# 'RUN' is used to run terminal commands into the image. This commands gives permissions to the file
+RUN chmod +x hello.sh
+
+# 'CMD' is similar to RUN but runs when the image is created and there can be only one
+CMD ./hello.sh
+</code></pre>
+   Running in the directoy with the two files the command <code>docker build . -t hello</code> will create an image following the various steps:
+<pre><code>Sending build context to Docker daemon  3.072kB
+Step 1/5 : FROM alpine:3.13
+3.13: Pulling from library/alpine
+72cfd02ff4d0: Pull complete 
+Digest: sha256:469b6e04ee185740477efa44ed5bdd64a07bbdd6c7e5f5d169e540889597b911
+Status: Downloaded newer image for alpine:3.13
+   ---> 6b5c5e00213a
+Step 2/5 : WORKDIR /app
+   ---> Running in 238063f29511
+Removing intermediate container 238063f29511
+   ---> 993baed50ddb
+Step 3/5 : COPY hello.sh .
+   ---> 3818dc4285f3
+Step 4/5 : RUN chmod +x hello.sh
+   ---> Running in 152db25c29eb
+Removing intermediate container 152db25c29eb
+   ---> 7c1db39374e3
+Step 5/5 : CMD ./hello.sh
+   ---> Running in 587249037c6f
+Removing intermediate container 587249037c6f
+   ---> 1f3cbfdf42c0
+Successfully built 1f3cbfdf42c0
+Successfully tagged hello:latest
+</code></pre>
+   Using <code>docker run hello</code> will instantiate the container that will print <code>Hi from a Docker container!</code> for then exit automatically
+</p>
+
+<p>
+   In the dockerfile you used certain keywords to build the images. You used <code>RUN</code> to execute some shell commands into the container and <code>CMD</code> but there is also a third one which is essential to develop serious images and if often confused with the other two: <code>ENTRYPOINT</code>.
+   <br>
+   <code>RUN</code> is the simplest of them all and for a simple enough image might also be enough. It simply runs some command line code into the container and that's. <code>CMD</code>, instead, is the final command of an image. There can be only one and at the end of the <code>Dockerfile</code> and it <b>gets executed during <code>docker run</code></b>.
+   <br>
+   <code>ENTRYPOINT</code> is similar to <code>CMD</code> with the foundamental difference that it allows for arguments when running the container. <code>CMD</code> can, and should, be used with <code>ENTRYPOINT</code> to set a default argument for the container creation.
+</p>
