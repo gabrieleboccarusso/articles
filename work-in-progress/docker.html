@@ -250,5 +250,31 @@ Successfully tagged hello:latest
    <br>
    <code>RUN</code> is the simplest of them all and for a simple enough image might also be enough. It simply runs some command line code into the container and that's. <code>CMD</code>, instead, is the final command of an image. There can be only one and at the end of the <code>Dockerfile</code> and it <b>gets executed during <code>docker run</code></b>.
    <br>
-   <code>ENTRYPOINT</code> is similar to <code>CMD</code> with the foundamental difference that it allows for arguments when running the container. <code>CMD</code> can, and should, be used with <code>ENTRYPOINT</code> to set a default argument for the container creation.
+   <code>ENTRYPOINT</code> is similar to <code>CMD</code> with the foundamental difference that it allows for arguments when running the container. <code>CMD</code> can, and should, be used with <code>ENTRYPOINT</code> to set a default argument for the container creation. Let's say that a container needs a to container a parameter, something like a name. If the name is provided as an argument during docker run then the container would output something like
+<pre><code>hi {name}!
+</code></pre>
+   otherwise it would automatically set <code>User</code> as default name. The code for this example would be
+<pre><code>FROM alpine:3.13
+
+WORKDIR /app
+
+COPY hello.sh .
+
+RUN chmod +x ./hello.sh
+
+ENTRYPOINT ["sh", "hello.sh"]
+
+CMD ["User"]</code></pre>
+   In this code the file <code>hello.sh</code> is simply
+<pre><code>echo "Hi" $1
+</code></pre>
+   Running the command <code>docker build . -t new-hello</code> will output the expected behavior and use <i>User</i> as default argument:
+<pre><code>$ docker run new-hello
+Hi User
+$ docker run new-hello Mark
+Hi Mark</code></pre>
+   A similar behavior is also used when running images of operative systems. Running <code>docker run ubuntu</code>, for example, the default argument in the <code>CMD</code> is be <code>bash</code> so that running the image it will by default open the terminal to interact with it.
 </p>
+
+<h2>Volumes</h2>
+<h2>Ports</h2>s
