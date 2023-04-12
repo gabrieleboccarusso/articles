@@ -1,63 +1,67 @@
-<!-- title: deploy everything with ease - docker from the ground up -->
-
-<ol>
- <li>installing docker
-   <ol>
-    <li>ubuntu (linux)</li>
-    <li>Windows</li>
-    <li>MacOs</li>
-   </ol>
- </li>
-</ol>
+<!-- title: Docker from the ground up -->
 
 <p>
- Docker is a way to deploy software by storing it in lightweight packages.
- <br>
- to check if docker is correctly installed run on the cli the command <code>docker -v</code>
+   Once an application is developed or, at least, reaches a fully derivable state comes the matter of deploying it to see it how it will behave and work in the real world context. Everything that happens between the making of a software application and its deployment and release cycles is simply defined as <i>operations</i>. The operations teams and the development teams used to have important differences between them and this did not make for a smooth release of a software product so with time new tools and ways to operate were invented to make those processes between and smoother. Such discipline took the name of <i>devops</i> due to how close to development it was while still maintaining the focus on the operations.
 </p>
 
-<h2>What is <i>DevOps</i>?</h2>
+<h2>What is DevOps?</h2>
 <p>
  Docker is getting everyday more relevant into the world of DevOps and to fully understand it is important to make clear what DevOps is and what role plays into the modern software development scene.
  <br>
- <i>Dev</i> refers to software development and <i>Ops</i> to the related operations regarding the deployment, the release and the monitoring of the performance. DevOps bridges the gap between the development and the release of a software using a set of precise practices aimed to improve the workflow between quality assurance, continous development and continous integration of the software throught its whole lifecycle.
+ <i>Dev</i> refers to software development and <i>Ops</i> to the related operations regarding the deployment, the release and the monitoring of the performance. DevOps bridges the gap between the development and the release of a software using a set of precise practices aimed to improve the workflow between quality assurance, continous development and continous integration of the software throughout its whole lifecycle.
 </p>
-<p>
- IMAGE1
-</p>
+<span class="image">
+   <img src="https://i.ibb.co/C136rNH/img1.jpg" alt="visual rapresentation of the devops cycle of release and production">
+</span>
 
 <h2>What is Docker?</h2>
 <p>
- Docker is a set of products that use virtualization at the Operative System level to delived software in packages called containers. A docker container contains mainly two things:
+ Docker is a set of products that use virtualization at the Operative System level to deliver software in lightweight packages called containers. A docker container contains mainly two things:
  <ul>
-  <li>Software source code</li>
-  <li>Operative System files (binaries and libraries)</li>
+  <li>The software source code</li>
+  <li>The perative System binary files and libraries</li>
  </ul>
- These two things, although being in the same container, are throughly separated so to not interfere with each other or other softwares. If such need would eventually arise Docker offers way and tools to do it.
- <br>
- IMAGE2
+ These two things, although being in the same container, are throughly separated so to not interfere with each other or other dependencies. If such need would eventually arise Docker offers way and tools to orchestrate everything is an easy way.
 </p>
+<span class="image">
+ <img src="https://i.ibb.co/3T25BQh/img2.jpg" alt="visual rapresentation of a containerized application">
+</span>
 <p>
- The containers are the actual instances of an application. The source code to create a together (as to put all the different pieces together) is container in a file called <code>Dockerfile</code> and that is referenced as an <b>image</b>. An image is the source code of a container and a container is an instance of an image.
+ The containers are the actual instances of an application. The source code to create a container is in a file called <code>Dockerfile</code> which is referenced as an <b>image</b>. The <code>Dockerfile</code> is the source code for an image and an image is a factory that produces instances called containers, the actual package that will execute the computations.
 </p>
 
 <h2>Docker's benefits</h2>
 <p>
- Containerizing an application provides multiple benefits. First of them is to make an application agnostic from the computer where it is develop and from the server. With the container already having all that is needed to run the application there is the certainty that it will run the same on the development machine, on the server and on every different platform it is used thus being indipendent from the outside environment. 
+ Containerizing an application provides multiple benefits. The first is that it makes an application agnostic from both the computer where it is developed and the server where it will be deployed. With the container already containing all that is needed to run the application there is the certainty that it will run the same on the development machine, on the server and on every different platform it is used thus being indipendent from the outside environment. 
 </p>
 <p>
  If a software needs a dependency as, for example, a specific version of a database, there will be no problem and difference between deployment and production as a container can also refer to a specific version of a dependency so to be sure that in any case the used libraries don't get mixed up between different machines.
 </p>
 <p>
- To wrap an application into a container scaling becomes easier as through creating multiple instances of the same image there is the possibility to create a load balancer that redirects the requests and if one container gets too much traffic or dies unexpectedlly due to an error the whole system will not go down and it will be easy to check the performance and metrics of that specific container.
- <br>
- IMAGE3
+ To wrap an application into a container means that scaling becomes easier as through creating multiple instances of the same image there is the possibility to create a load balancer that redirects the requests and if one container gets too much traffic or dies unexpectedly due to an error the whole system will not go down and it will be easy to check the performance and metrics of that specific container.
+</p>
+<span class="image">
+ <img src="https://i.ibb.co/kB0N16Y/img3.jpg" alt="rapresentation of scaling an application through redirecting requests towards the less busy container">
+</span>
+
+<h2>Installing Docker</h2>
+<p>
+   The <a href="https://docs.docker.com/">docker docs</a> provide exact and in-depth information about how to install it on your operative system. The best experience is to use a linux distribution as docker uses heavily linux under the hood and is built with it in mind. Docker runs nativaly on linux and, for example, the only version of window that run docker natively are Windows Server 2016 and Windows 10. Docker bases container on linux distributions so it might also be better to get accustomed to it but in any case it can be installed on most operative systems.
+   <br>
+   The following instructions are to install Docker Desktop. With it comes along the docker engine and everything else. Everything here will be done through the command line but once accustomed with it it will be very useful to have an interface to speed things up.
+   <ol>
+      <li><a href="https://docs.docker.com/desktop/install/mac-install/">MacOS</a></li>
+      <li><a href="https://docs.docker.com/desktop/install/windows-install/">Windows</a></li>
+      <li><a href="https://docs.docker.com/engine/install/#server">Linux distributions</a></li>
+   </ol>
+   To check if Docker is installed run <code>Docker -v</code> and the version and the build will be outputted.
 </p>
 
-<h2>Getting Started</h2>
+<h2>Warming up</h2>
 <p>
- By running in the command line <code>docker container run hello-world</code> docker will look for the <code>hello-world</code> image locally and if not found will download it and before running the image a message informing about the download of the image will be shown. The actual output of this line is:
- <pre><code>Hello from Docker!
+ By running in the command line <code>docker container run hello-world</code> docker will look for the <code>hello-world</code> image locally. It will not found and will thus start to download it. The output will be:
+ <pre><code>$ docker container run hello-world
+Hello from Docker!
 This message shows that your installation appears to be working correctly.
 
 To generate this message, Docker took the following steps:
