@@ -188,25 +188,40 @@ CONTAINER ID   IMAGE         COMMAND   CREATED        STATUS                    
 
 <h2>Using containers</h2>
 <p>
-   Let's run a in a container a lightweight linux distribution: <a href="https://alpinelinux.org/">alpine</a>. When an image is not present locally docker will consult the official docker image registry at <a href="https://hub.docker.com/">docker hub</a>. There are, of course, other image registries like <a href="https://quay.io/">quay</a>.
-   IMAGE 4
-   Running <code>docker run alpine</code> will produce no output and although the container will be create it will immediately stop running
-   IMAGE5
+   Let's run a in a container a lightweight linux distribution: <a href="https://alpinelinux.org/">alpine</a>. When an image is not present locally docker will consult the official docker image registry at <a href="https://hub.docker.com/">docker hub</a>. There are, of course, other image registries like <a href="https://quay.io/">quay</a> but docker hub remians the central point to find images.
+<pre><code>$ docker pull alpine
+Using default tag: latest
+latest: Pulling from library/alpine
+f56be85fc22e: Pull complete 
+Digest: sha256:124c7d2707904eea7431fffe91522a01e5a861a624ee31d03372cc1d138a3126
+Status: Downloaded newer image for alpine:latest
+<b>docker.io</b>/library/alpine:latest
+</code></pre>
+   Running <code>docker run alpine</code> will produce no output and although the container will be created it will immediately stop running:
+<pre><code>$ docker run alpine 
+$ docker container ls -a
+CONTAINER ID   IMAGE     COMMAND     CREATED         STATUS                     PORTS     NAMES
+0c21e8b38485   alpine    "/bin/sh"   9 seconds ago   Exited (0) 6 seconds ago             pensive_gagarin
+</code></pre>
    Adding the <code>-it</code> the container will keep running and you'll be able to interact with it till you don't shut it down. By itself the containerized OS will open and will be possible to use it.
    IMAGE6
-   to exit the container in this case the keyword <code>exit</code> will terminate the terminal and along with it the container too.
-   IMAGE 7
+   https://i.ibb.co/9bHKyRP/img4.png
+</p>
+<span class="image">
+   <img src="https://i.ibb.co/9bHKyRP/img4.png" alt="image showing interacting with a docker container running the alpine linux distro">
+</span>
+<p>
+   to exit the container in this case the keyword <code>exit</code> will terminate the terminal and along with it the container too. This works because you are currently using a bash shell in the container. Normally to exit the container there would be the need of running <code>docker stop *container id*</code> that can be looke up with <code>docker container ls</code> too see all the currently running ones.
 </p>
 
 <h2>Building images</h2>
 <p>
    Every docker image is divided into <i>layers</i> that gets downloaded simultaneously if an image is collected from the web.
-   IMAGE 8
+   <br>
    An image is built using a <b>Dockerfile</b>, a file which containers all the instructions regarding the various layers and behavior of the containers that will be instantiated. Docker can copy files, run commands on them and perform a wide array of actions into the container.
    <br>
    With a bash script called <code>hello.sh</code> with the following code
-<pre><code>echo "Hi from a Docker container!"
-</code></pre>
+<pre><code>echo "Hi from a Docker container!"</code></pre>
    and in the same directoy a file called simply <code>Dockerfile</code> with the following code it will be possible to containerize the file as it would be a fully blown application.
 <pre><code># starting from the alpine image with tag 3.13 (which contains alpine 3.13)
 FROM alpine:3.13
@@ -248,17 +263,16 @@ Removing intermediate container 587249037c6f
 Successfully built 1f3cbfdf42c0
 Successfully tagged hello:latest
 </code></pre>
-   Using <code>docker run hello</code> will instantiate the container that will print <code>Hi from a Docker container!</code> for then exit automatically
+   Using <code>docker run hello</code> will instantiate the container that will print <code>Hi from a Docker container!</code> for then exit it automatically
 </p>
 
 <p>
    In the dockerfile you used certain keywords to build the images. You used <code>RUN</code> to execute some shell commands into the container and <code>CMD</code> but there is also a third one which is essential to develop serious images and if often confused with the other two: <code>ENTRYPOINT</code>.
    <br>
-   <code>RUN</code> is the simplest of them all and for a simple enough image might also be enough. It simply runs some command line code into the container and that's. <code>CMD</code>, instead, is the final command of an image. There can be only one and at the end of the <code>Dockerfile</code> and it <b>gets executed during <code>docker run</code></b>.
+   <code>RUN</code> is the simplest of them all and for a simple enough image might also be enough. It simply runs some command line code into the container and that's it. <code>CMD</code>, instead, is the final command of an image. There can be only one and at the end of the <code>Dockerfile</code> and it <b>gets executed during <code>docker run</code></b>.
    <br>
    <code>ENTRYPOINT</code> is similar to <code>CMD</code> with the foundamental difference that it allows for arguments when running the container. <code>CMD</code> can, and should, be used with <code>ENTRYPOINT</code> to set a default argument for the container creation. Let's say that a container needs a to container a parameter, something like a name. If the name is provided as an argument during docker run then the container would output something like
-<pre><code>hi {name}!
-</code></pre>
+<pre><code>hi *name*!</code></pre>
    otherwise it would automatically set <code>User</code> as default name. The code for this example would be
 <pre><code>FROM alpine:3.13
 
@@ -268,8 +282,15 @@ COPY hello.sh .
 
 RUN chmod +x ./hello.sh
 
-# write note about diff between exec and shell form
+# writing a command this way
 ENTRYPOINT ["sh", "hello.sh"]
+# will use the <i>exec form</i> that runs the
+# command directly while otherwise it
+# would use the shell form which means
+# that the command will use all the
+# shell conveniencies. Using the shell
+# form breaks  the entrypoint and cmd
+# concatenation
 
 CMD ["User"]</code></pre>
    In this code the file <code>hello.sh</code> is simply
@@ -280,14 +301,10 @@ CMD ["User"]</code></pre>
 Hi User
 $ docker run new-hello Mark
 Hi Mark</code></pre>
-   A similar behavior is also used when running images of operative systems. Running <code>docker run ubuntu</code>, for example, the default argument in the <code>CMD</code> is be <code>bash</code> so that running the image it will by default open the terminal to interact with it.
+   A similar behavior is also used for images of operative systems. The command <code>docker run ubuntu</code>, for example, will automatically use as argument the<code>bash</code> keyword so that running the image will open by default the terminal to interact with it.
 </p>
 
 <h2>Storing a container's data</h2>
-<!-- 
-<h2>Volumes and bind mounts</h2> 
-note: write difference between volumes and bind mounts
--->
 <p>
    When data is generated by a container it exists only inside of itself. To store the generated data there are two interconnected ways: <i>volumes</i> and <b>bind mounts</b>. Bind mounts connect a file or directory of the container to the host machine and everything that happens into the file or directory of the container happens in the host machine file or folder too.
    <br>
@@ -300,15 +317,14 @@ RUN touch file.txt
 
 # those two commands go together so that the 
 # container can append the text to the bound
-# file in the volumn and is possible to see
-# the output at the same time
+# file in the volume you can see the output
+# at the same time
 CMD echo "text" >> file.txt && cat file.txt
 
 # to have this by itself in the CMD command
 # would not work
-#CMD cat file.txt
-</code></pre>
-   The container related to this image would by itself just print <code>text</code> but by binding <code>file.txt</code> with a file with the same name on the hosting machine the container's file will have persistence over time. The bind amount can happend only through file or directories with the same name so by creating a <code>file.txt</code> in the same directory of the Dockerfile the completed flag would be
+# CMD cat file.txt</code></pre>
+   The container related to this image would by itself just print <code>text</code> but by binding <code>file.txt</code> with a file with the same name on the hosting machine the container's file will have persistence over time. The bind amount can happend only through file with the same name so by creating a <code>file.txt</code> in the same directory of the Dockerfile the completed flag value would be
 <pre><code>-v "$(pwd)/file.txt:/app/file.txt"</code></pre>
    The value can be divided into three parts:
    <ol>
@@ -317,21 +333,25 @@ CMD echo "text" >> file.txt && cat file.txt
       <li><code>/app/file.txt</code> is the absolute path of the file in the container</li>
    </ol>
    In the following image is possible to the result of running the container without using a volume and it simply outputs <code>text</code>. While using the <code>-v</code> flag the container's file and the one on the host machine are connected and everytime a new container gets run the content persists although the containers are different
-   <br>
-   IMAGE 9
-   <br>
+</p>
+<span class="image">
+   <img src="https://i.ibb.co/c3HvcW3/img5.png" alt="example usage of a docker valume using a file">
+</span>
+<p>
    The same holds true for directories too, of course. If in the current directory you delete <code>file.txt</code> and bind mount the <code>/app</code> directory with the current every change that will happen in the current directory will be persisted. Although to mount to files they need to have the same name this is not true for directories.
-   <br>
-   IMAGE 10
-   <br>
+</p>
+<span class="image">
+   <img src="https://i.ibb.co/xLK8N93/img6.png" alt="example usage of a docker valume using a directory">
+</span>
+<p>
    The most important note to bear in mind is that <i>routes are always absolute</i> and every attempt to use a relative one will result in an error.
-<pre><code>docker run -v "$./file.txt:/app/file.txt" bind-mount-example
+<pre><code>docker run -v "./file.txt:/app/file.txt" bind-mount-example
 docker: Error response from daemon: create $./file.txt: "$./file.txt" includes invalid characters for a local volume name, only "[a-zA-Z0-9][a-zA-Z0-9_.-]" are allowed. If you intended to pass a host directory, use absolute path</code></pre>
 </p>
 
 <h2>Ports</h2>
 <p>
-   A running container can communicate using URLs and the most important is the address <code>127.0.0.1</code> usally called <code>localhost</code> and refers to the machine itself. This is important to know because by itself a container is simply a closed virtual space where code runs so if an application normally can be seen on localhost on a specific port if it runs in a container it will not communicate with the host machine by itself. Docker works with ports in two ways:
+   A running container can communicate using URLs and the most important is the address <code>127.0.0.1</code>, usally called <code>localhost</code>, and refers to the machine itself. This is important to know because by itself a container is simply a closed virtual space where code runs so if an application normally can be seen on localhost on a specific port if it runs in a container it will not communicate with the host machine by itself. Docker works with ports in two ways:
    <dl>
       <dt>Exposing a port</dt>
       <dd>To expose a certain port means that the container is listening on that port. It is useful especially for manual configuration and happens in the <code>Dockerfile</code></dd>
@@ -343,7 +363,7 @@ docker: Error response from daemon: create $./file.txt: "$./file.txt" includes i
 
 # will work also without exposing
 # the port but is always better
-# to not omit it
+# to not omit this line
 EXPOSE 8000
 
 WORKDIR /app
@@ -354,11 +374,12 @@ RUN echo '{"message":"Hello"}' >> data.json
 CMD ["python", "-m", "http.server"]  
 </code></pre>
    This code uses python to create a web server. It simply serves every file inside the current folder, in this case <code>/app</code>. By creating a json file with some data in it and it will be possible to receive the data when visiting the related url.
-   <br>
-   IMAGE 11
-   <br>
 </p>
+<span class="image">
+   <img src="https://i.ibb.co/27Yv1zz/img7.png" alt="">
+</span>
 
+<h2>Ending</h2>
 <p>
    Docker is a foundamental part of general DevOps and although it might not be the tool that you'll be going to use the concepts of containers and virtualization are always the same and do not change between services. Containerization allows for an easier continous integration and continous deployment cycle but it still needs to be backed up by other practices to allow that everything runs as smooth as possible. Containers are a first but vital part of such processes.
 </p>
