@@ -434,49 +434,49 @@ public class PersonController {
     Once everything is done the API will be available by default on the <i>port 8080</i>. By going in Postman we can view all the entries with a simple GET request at <code>http://localhost:8080/person</code>
 </p>
 <span class="image">
-  <img src="https://i.ibb.co/xJKvk6r/img1.png" alt="Getting all the entries from a spring boot API" class="image main">
+  <img src="https://i.ibb.co/6DG3mPJ/img1.png" alt="Getting all the entries from a spring boot API" class="image main">
 </span>
 <p>
   Following the controller mapping, this becomes the default view. If we add an id to the URL we can get the related person. The result of <code>http://localhost:8080/person/1</code> will get the person with an id of 1. An error 404 if no entry with such id is in the database.
 </p>
 <span class="image">
-  <img src="https://i.ibb.co/b74B8j0/img2.png" alt="Getting an etry with a specific id in a spring boot API" class="image main">
+  <img src="https://i.ibb.co/8KrMRgR/img2.png" alt="Getting an etry with a specific id in a spring boot API" class="image main">
 </span>
 <p>
   To make a POST request only the body is needed. Using the JSON format it'd be like this:
 </p>
 <span class="image">
-  <img src="https://i.ibb.co/rsqH3LJ/img3.png" alt="POSTing a resource in a spring boot API" class="image main">
+  <img src="https://i.ibb.co/W3c7Nwc/img3.png" alt="POSTing a resource in a spring boot API" class="image main">
 </span>
 <p>
   The response 200 means that the entry has been added successfully and if we look for the newly added id we can see the proof:
 </p>
 <span class="image">
-  <img src="https://i.ibb.co/4KYQXMn/img4.png" alt="Checking if a resource has been added in a spring boot API" class="image main">
+  <img src="https://i.ibb.co/D9DvGfM/img4.png" alt="Checking if a resource has been added in a spring boot API" class="image main">
 </span>
 <p>
   Testing the PUT method is similar to POST with the exception that we put other data in the body:
 </p>
 <span class="image">
-  <img src="https://i.ibb.co/8PdnXtd/img5.png" alt="PUTting a resource in a spring boot API" class="image main">
+  <img src="https://i.ibb.co/c3L9SVC/img5.png" alt="PUTting a resource in a spring boot API" class="image main">
 </span>
 <p>
   And if you check the resource id you'll see proof of the changing:
 </p>
 <span class="image">
-  <img src="https://i.ibb.co/KxfSzHS/img6.png" alt="Checking if a resource has been PUTted successfully in a spring boot API" class="image main">
+  <img src="https://i.ibb.co/mhJ1StK/img6.png" alt="Checking if a resource has been PUTted successfully in a spring boot API" class="image main">
 </span>
 <p>
   Deleting a resouces comes to the same way:
 </p>
 <span class="image">
-  <img src="https://i.ibb.co/XtSdFBL/img7.png" alt="DELETEing a resource in a spring boot API" class="image main">
+  <img src="https://i.ibb.co/Zc52D6T/img7.png" alt="DELETEing a resource in a spring boot API" class="image main">
 </span>
 <p>
   And by getting again all of the entries we'll see that the person with the id of 1 doesn't exists anymore:
 </p>
 <span class="image">
-  <img src="https://i.ibb.co/F5kLn8s/img8.png" alt="Checking if a resource has been DELETEd successfully in a spring boot API" class="image main">
+  <img src="https://i.ibb.co/9ZN0RhG/img8.png" alt="Checking if a resource has been DELETEd successfully in a spring boot API" class="image main">
 </span>
 <h2>Wrapping it all up</h2>
 <p>
