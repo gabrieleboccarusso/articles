@@ -1,14 +1,12 @@
 <!-- title: Docker from the ground up -->
 
 <p>
-   Once an application is developed or, at least, reaches a fully derivable state comes the matter of deploying it to see it how it will behave and work in the real world context. Everything that happens between the making of a software application and its deployment and release cycles is simply defined as <i>operations</i>. The operations teams and the development teams used to have important differences between them and this did not make for a smooth release of a software product so with time new tools and ways to operate were invented to make those processes between and smoother. Such discipline took the name of <i>devops</i> due to how close to development it was while still maintaining the focus on the operations.
+   Once an application is developed or, at least, reaches a fully derivable state, comes the deployment phase. Everything that happens between the making of a software application and its deployment is defined as <i>operations</i>. The operations teams and the development teams used to have important differences between them and this did not make for a smooth deployment of a software product so new tools and ways to operate were invented to make such processes run smoother. Such discipline took the name of <i>devops</i> due to how close to development it was while still maintaining the focus on the operations.
 </p>
 
 <h2>What is DevOps?</h2>
 <p>
- Docker is getting everyday more relevant into the world of DevOps and to fully understand it is important to make clear what DevOps is and what role plays into the modern software development scene.
- <br>
- <i>Dev</i> refers to software development and <i>Ops</i> to the related operations regarding the deployment, the release and the monitoring of the performance. DevOps bridges the gap between the development and the release of a software using a set of precise practices aimed to improve the workflow between quality assurance, continous development and continous integration of the software throughout its whole lifecycle.
+ Docker is getting everyday more relevant into the world of DevOps and to fully understand it it's important to make clear what DevOps is and what role it plays into the modern software development scene. <i>Dev</i> refers to software development and <i>Ops</i> to the related operations such as the release, the monitoring and the packaging. It bridges the gap between the development and these operations using a set of precise practices aimed to improve the workflow between quality assurance, continuous development and continuous integration of the software throughout its whole lifecycle.
 </p>
 <span class="image">
    <img src="https://i.ibb.co/C136rNH/img1.jpg" alt="visual rapresentation of the devops cycle of release and production">
@@ -16,19 +14,19 @@
 
 <h2>What is Docker?</h2>
 <p>
- Docker is a set of products that use virtualization at the Operative System level to deliver software in lightweight packages called containers. A docker container contains mainly two things:
+ Docker is a platform that uses virtualization at the operative system level to deliver software in lightweight packages called containers. A docker container contains mainly two things:
  <ul>
   <li>The software source code</li>
   <li>The perative System binary files and libraries</li>
  </ul>
- These two things, although being in the same container, are throughly separated so to not interfere with each other or other dependencies. If such need would eventually arise Docker offers way and tools to orchestrate everything is an easy way.
+ These two things, although being in the same container, are throughly separated so to not interfere with each other or other dependencies. If such need would eventually arise Docker offers way and tools to <i>orchestrate</i> everything is an easy way.
+</p>
+<p>
+   A container is an instance of an <i>image</i>. An image is a factory that creates containers and it is created from a <code>Dockerfile</code>, the file present into the project's directory and that once built creates an image ready to instantiate containers. A container is the actually packaged project.
 </p>
 <span class="image">
- <img src="https://i.ibb.co/3T25BQh/img2.jpg" alt="visual rapresentation of a containerized application">
+   <img src="https://i.ibb.co/3T25BQh/img2.jpg" alt="visual rapresentation of a containerized application">
 </span>
-<p>
- The containers are the actual instances of an application. The source code to create a container is in a file called <code>Dockerfile</code> which is referenced as an <b>image</b>. The <code>Dockerfile</code> is the source code for an image and an image is a factory that produces instances called containers, the actual package that will execute the computations.
-</p>
 
 <h2>Docker's benefits</h2>
 <p>
@@ -38,7 +36,7 @@
  If a software needs a dependency as, for example, a specific version of a database, there will be no problem and difference between deployment and production as a container can also refer to a specific version of a dependency so to be sure that in any case the used libraries don't get mixed up between different machines.
 </p>
 <p>
- To wrap an application into a container means that scaling becomes easier as through creating multiple instances of the same image there is the possibility to create a load balancer that redirects the requests and if one container gets too much traffic or dies unexpectedly due to an error the whole system will not go down and it will be easy to check the performance and metrics of that specific container.
+ To wrap an application into a container means that scaling becomes easier as by creating multiple containers there is the possibility to create a load balancer that redirects the requests to a container with less active load and if one of them gets too much traffic or dies unexpectedly due to an error the whole system will not go down and it will be easy to check the performance and metrics of that specific container.
 </p>
 <span class="image">
  <img src="https://i.ibb.co/kB0N16Y/img3.jpg" alt="rapresentation of scaling an application through redirecting requests towards the less busy container">
@@ -46,7 +44,7 @@
 
 <h2>Installing Docker</h2>
 <p>
-   The <a href="https://docs.docker.com/">docker docs</a> provide exact and in-depth information about how to install it on your operative system. The best experience is to use a linux distribution as docker uses heavily linux under the hood and is built with it in mind. Docker runs nativaly on linux and, for example, the only version of window that run docker natively are Windows Server 2016 and Windows 10. Docker bases container on linux distributions so it might also be better to get accustomed to it but in any case it can be installed on most operative systems.
+   The <a href="https://docs.docker.com/">docker docs</a> provide exact and in-depth information about how to install it on your operative system. It is recommended to use a linux distribution as docker uses heavily linux under the hood and is built with it in mind. Docker runs natively on linux and the only version of window that run docker natively are Windows Server 2016 and Windows 10. Docker bases container on linux distributions so it might also be better to get accustomed to it but in any case it can be installed on most operative systems.
    <br>
    The following instructions are to install Docker Desktop. With it comes along the docker engine and everything else. Everything here will be done through the command line but once accustomed with it it will be very useful to have an interface to speed things up.
    <ol>
@@ -54,66 +52,71 @@
       <li><a href="https://docs.docker.com/desktop/install/windows-install/">Windows</a></li>
       <li><a href="https://docs.docker.com/engine/install/#server">Linux distributions</a></li>
    </ol>
-   To check if Docker is installed run <code>Docker -v</code> and the version and the build will be outputted.
+   To check if Docker is installed run <code>Docker -v</code> in the command line and the version and the build will be outputted.
 </p>
 
 <h2>Warming up</h2>
 <p>
- By running in the command line <code>docker container run hello-world</code> docker will look for the <code>hello-world</code> image locally. It will not found and will thus start to download it. The output will be:
- <pre><code>$ docker container run hello-world
+ By running in the command line <code>docker container run hello-world</code> docker will look for the <code>hello-world</code> image locally. It will not found it and will thus look it up on the internet to download it if a matching occurs. The output will be:
+<pre><code>$ docker container run hello-world
+Unable to find image 'hello-world:latest' locally
+latest: Pulling from library/hello-world
+2db29710123e: Pull complete 
+Digest: sha256:4e83453afed1b4fa1a3500525091dbfca6ce1e66903fd4c01ff015dbcb1ba33e
+Status: Downloaded newer image for hello-world:latest
+
 Hello from Docker!
 This message shows that your installation appears to be working correctly.
 
 To generate this message, Docker took the following steps:
- 1. The Docker client contacted the Docker daemon.
- 2. The Docker daemon pulled the "hello-world" image from the Docker Hub.
-    (amd64)
- 3. The Docker daemon created a new container from that image which runs the
-    executable that produces the output you are currently reading.
- 4. The Docker daemon streamed that output to the Docker client, which sent it
-    to your terminal.
+   1. The Docker client contacted the Docker daemon.
+   2. The Docker daemon pulled the "hello-world" image from the Docker Hub.
+      (amd64)
+   3. The Docker daemon created a new container from that image which runs the
+      executable that produces the output you are currently reading.
+   4. The Docker daemon streamed that output to the Docker client, which sent it
+      to your terminal.
 
 To try something more ambitious, you can run an Ubuntu container with:
- $ docker run -it ubuntu bash
+   $ docker run -it ubuntu bash
 
 Share images, automate workflows, and more with a free Docker ID:
- https://hub.docker.com/
+   https://hub.docker.com/
 
 For more examples and ideas, visit:
- https://docs.docker.com/get-started/
- </code></pre>
- Images are to be consideres as immutable as they can't change after their creation.
+   https://docs.docker.com/get-started/</code></pre>
+ Images are  immutable as they can't change after their build.
  <br>
  To list all the locally available images run in the command line <code>docker image ls</code>
- <pre><code>REPOSITORY    TAG      IMAGE ID       CREATED         SIZE
+<pre><code>$ docker image ls
+REPOSITORY    TAG      IMAGE ID       CREATED         SIZE
 hello-world   latest   feb5d9fea6a5   18 months ago   13.3kB
- </code></pre>
- Everytime an image is run it creates another container (so an instance). the file <code>Dockerfile</code> contains the commands used to build the image and its content resembles this:
- <pre><code># start image from a previously built image
+</code></pre>
+ Everytime an image's build is completed it's possible to create a container. the <code>Dockerfile</code>instruction follow a pattern that resembles this:
+<pre><code># start image from a previously built image
 FROM *image*:*tag*
 
 # run cli command to install some dependencies
 # or to perform an operation
 RUN *cli command*
 
-# run the cli command that will be execute on docker run
-CMD *cli command executed on run*
- </code></pre>
- A dockerfile is written by a developer and docker <i>builds</i> the relative image and once it finishes it can also create containers (instances) of the build.
+# run the cli command that will be execute on creation
+CMD *cli command executed on run*</code></pre>
 </p>
 <p>
  A container contains only what is required to run the application. It is an isolated environment that can communicate with other containers through the TCP/UDP method.
  <br>
  To see all the container that are currently running run in the cli <code>docker container ls</code>
- <pre><code>CONTAINER ID   IMAGE     COMMAND   CREATED   STATUS    PORTS     NAMES</code></pre>
- and to see all the exited containers add the <code>-a</code> flag: <code>docker container ls -a</code>
- <pre><code>
+<pre><code>$ docker container ls
+CONTAINER ID   IMAGE     COMMAND   CREATED   STATUS    PORTS     NAMES</code></pre>
+   and to see all the exited containers add the <code>-a</code> flag:
+<pre><code>$ docker container ls -a
 CONTAINER ID   IMAGE         COMMAND   CREATED        STATUS                     PORTS     NAMES
-914f05a2f6c3   hello-world   "/hello"  7 seconds ago   Exited (0) 4 seconds ago              clever_jones
- </code></pre>
+914f05a2f6c3   hello-world   "/hello"  7 seconds ago   Exited (0) 4 seconds ago            clever_jones
+</code></pre>
 </p>
 <p>
- The Docker cli is divided, under the hood, in three parts:
+ The Docker cli is divided in three parts:
  <ol>
   <li>The docker cli tool that accepts a request</li>
   <li>The Docker daemon that manages the images and the containers</li>
@@ -129,13 +132,13 @@ CONTAINER ID   IMAGE         COMMAND   CREATED        STATUS                    
    <code>docker image pull *image*</code>
   </dt>
   <dt>
-   gets an image from the image registry and downloads it online if there isn't one available  locally
+   gets an image from the registry and downloads it if there isn't one available locally
   </dt>
   <dt>
    <code>docker container run *image name*</code>
   </dt>
   <dd>
-   creates and runs a new container based on an image. <br> the <code>-d</code> flag runs it in detached state
+   creates and runs a new container based on an existing image. <br> the <code>-d</code> flag runs it in detached state
   </dd>
   <dt>
    <code>docker container stop *container name or id*</code>
@@ -147,20 +150,15 @@ CONTAINER ID   IMAGE         COMMAND   CREATED        STATUS                    
    <code>docker image rm *image name*</code>
   </dt>
   <dd>
-   Deletes a specific image
+   Removes a specific image
   </dd>
   <dt>
    <code>docker container ls</code>
   </dt>
   <dd>
-   Lists all the container currently running
+   Lists all the container currently running. The <code>-a</code> flag lists also the stopped ones
   </dd>
   <dt>
-   <code>docker container ls -a</code>
-  </dt>
-  <dd>
-   Lists all containers, both running and exited
-  </dd>
   <dt>
    <code>docker container stop *container name or id*</code>
   </dt>
@@ -168,7 +166,7 @@ CONTAINER ID   IMAGE         COMMAND   CREATED        STATUS                    
    Stops a running container
   </dd>
   <dt>
-   <code>docker container rm *image id*</code>
+   <code>docker container rm *image id or name*</code>
   </dt>
   <dd>
    deletes a container by its id. It can also take the first few chars of the id and work anyway giving a warning only if there are more containers with an id that <i>start</i> the same. <br>Can accept multiple arguments
@@ -177,11 +175,11 @@ CONTAINER ID   IMAGE         COMMAND   CREATED        STATUS                    
 </p>
 
 <p>
-   Docker allows much more than that. containerization works with everything and by pulling from the internet the image of an operative system it will be possible to run the <code>tty</code> interface with the <code>-t</code> flag. The sole problem is that although this will output the interface it will still not send any of the inputs commands. To achieve it the flag <code>-i</code> will have to be put along so to actually send commands and receive output successfully. 
+   Containerization works with everything and by pulling from the internet the image of an operative system it will be possible to run the <code>tty</code> interface with the <code>-t</code> flag. The sole problem is that although this will output the interface, it will still not send any of the inputs commands. To achieve it the flag <code>-i</code> will have to be put along so to actually send commands and receive output successfully. 
    <br>
    The flag <code>--name</code> allows for a custom name for a container. With a custom name will also be easier to stop or continue a container. Typing <code>docker pause *container name*</code> will stop the container with the specifed name and <code>docker unpause *container name*</code> will make it run again starting from where it was interrupted. 
    <br>
-   Considering that containers are also piece of software that run in a fixed environment you can also communicate with them while they run. For this there is the flag <code>--exec</code>. An example use could be to have a running instance of a database and use the flag to query some specific data and to run additional commands to a running instance of an operative instance. What if we have deployed our software in a container with a specific linux distribution and we want to check something while is running? A very simple <code>docker exec -it *container name* bash</code> will open the bash command line in the terminal and with the <code>-it</code> flag it will be possible to interact with it.
+   Considering that containers are also piece of software that run in a fixed environment you can also communicate with them while they run. For this there is the flag <code>--exec</code>. A usage example could be to have a running instance of a database and use the flag to query some specific data or to run additional commands to a running instance of an operative instance. What if we have deployed our software in a container with a specific linux distribution and we want to check something while is running? A very simple <code>docker exec -it *container name* bash</code> will open the bash command line in the current terminal and with the <code>-it</code> flag it will be possible to interact with it.
    <br>
    Now that a lot has been put on the plate is time to see things in a more practical way.
 </p>
@@ -203,26 +201,23 @@ $ docker container ls -a
 CONTAINER ID   IMAGE     COMMAND     CREATED         STATUS                     PORTS     NAMES
 0c21e8b38485   alpine    "/bin/sh"   9 seconds ago   Exited (0) 6 seconds ago             pensive_gagarin
 </code></pre>
-   Adding the <code>-it</code> the container will keep running and you'll be able to interact with it till you don't shut it down. By itself the containerized OS will open and will be possible to use it.
-   IMAGE6
-   https://i.ibb.co/9bHKyRP/img4.png
+   Adding the <code>-it</code> flag the container will keep running and you'll be able to interact with it till you don't shut it down. By itself the containerized OS will open and will be possible to use it.
 </p>
 <span class="image">
    <img src="https://i.ibb.co/9bHKyRP/img4.png" alt="image showing interacting with a docker container running the alpine linux distro">
 </span>
 <p>
-   to exit the container in this case the keyword <code>exit</code> will terminate the terminal and along with it the container too. This works because you are currently using a bash shell in the container. Normally to exit the container there would be the need of running <code>docker stop *container id*</code> that can be looke up with <code>docker container ls</code> too see all the currently running ones.
+   to exit the container while using a shell the keyword <code>exit</code> will terminate the terminal and the container too. This works because you are currently using a bash shell in the container. Normally to stop a container would need to be done using the docker cli with <code>docker stop *container id or name*</code>
 </p>
 
 <h2>Building images</h2>
 <p>
-   Every docker image is divided into <i>layers</i> that gets downloaded simultaneously if an image is collected from the web.
-   <br>
-   An image is built using a <b>Dockerfile</b>, a file which containers all the instructions regarding the various layers and behavior of the containers that will be instantiated. Docker can copy files, run commands on them and perform a wide array of actions into the container.
-   <br>
-   With a bash script called <code>hello.sh</code> with the following code
+   Docker can perform a wide array of actions like copy files, run cli commands and use multiple images inside the current one. It improves the build of such instruction by dividing them into <i>layers</i> that gets executed simultaneously. Roughly talking, every line in the <code>Dockerfile</code> is a layer.
+</p>
+<p>
+   With a bash script called <code>hello.sh</code>with the following code
 <pre><code>echo "Hi from a Docker container!"</code></pre>
-   and in the same directoy a file called simply <code>Dockerfile</code> with the following code it will be possible to containerize the file as it would be a fully blown application.
+   and in the same directoy a <code>Dockerfile</code> with the following code it will be possible to containerize the file as it would be a fully blown application.
 <pre><code># starting from the alpine image with tag 3.13 (which contains alpine 3.13)
 FROM alpine:3.13
 
@@ -232,10 +227,12 @@ WORKDIR /app
 # copy 'hello.sh' into the working directory (so '/app')
 COPY hello.sh .
 
-# 'RUN' is used to run terminal commands into the image. This commands gives permissions to the file
+# 'RUN' is used to run terminal commands into the image. 
+# This commands gives permissions to the file
 RUN chmod +x hello.sh
 
-# 'CMD' is similar to RUN but runs when the image is created and there can be only one
+# 'CMD' is similar to RUN but runs when the image is 
+# executed and there can be only one per Dockerfile
 CMD ./hello.sh
 </code></pre>
    Running in the directoy with the two files the command <code>docker build . -t hello</code> will create an image following the various steps:
@@ -263,15 +260,15 @@ Removing intermediate container 587249037c6f
 Successfully built 1f3cbfdf42c0
 Successfully tagged hello:latest
 </code></pre>
-   Using <code>docker run hello</code> will instantiate the container that will print <code>Hi from a Docker container!</code> for then exit it automatically
+   Using <code>docker run hello</code> will instantiate the container that will print <code>Hi from a Docker container!</code> for then stopping automatically.
 </p>
 
 <p>
-   In the dockerfile you used certain keywords to build the images. You used <code>RUN</code> to execute some shell commands into the container and <code>CMD</code> but there is also a third one which is essential to develop serious images and if often confused with the other two: <code>ENTRYPOINT</code>.
+   In the dockerfile you used certain keywords to build the images. You used <code>RUN</code> to execute some shell commands into the container and <code>CMD</code> but there is also a third one which is essential to develop serious images andis often confused with the other two: <code>ENTRYPOINT</code>.
    <br>
-   <code>RUN</code> is the simplest of them all and for a simple enough image might also be enough. It simply runs some command line code into the container and that's it. <code>CMD</code>, instead, is the final command of an image. There can be only one and at the end of the <code>Dockerfile</code> and it <b>gets executed during <code>docker run</code></b>.
+   <code>RUN</code> is the simplest of them all. It simply runs some command line code into the container and that's it. <code>CMD</code>, instead, is the final command of an image. There can be only one and at the end of the <code>Dockerfile</code> and gets executed during <code>docker run</code>.
    <br>
-   <code>ENTRYPOINT</code> is similar to <code>CMD</code> with the foundamental difference that it allows for arguments when running the container. <code>CMD</code> can, and should, be used with <code>ENTRYPOINT</code> to set a default argument for the container creation. Let's say that a container needs a to container a parameter, something like a name. If the name is provided as an argument during docker run then the container would output something like
+   <code>ENTRYPOINT</code> is similar to <code>CMD</code> with the foundamental difference that it allows for arguments when running the container. <code>CMD</code> can, and should, be used along <code>ENTRYPOINT</code> to set a default argument for the container creation. Let's say that a container needs a parameter. Something like a name. If the name is provided as an argument during docker run then the container would output something like
 <pre><code>hi *name*!</code></pre>
    otherwise it would automatically set <code>User</code> as default name. The code for this example would be
 <pre><code>FROM alpine:3.13
@@ -301,14 +298,12 @@ CMD ["User"]</code></pre>
 Hi User
 $ docker run new-hello Mark
 Hi Mark</code></pre>
-   A similar behavior is also used for images of operative systems. The command <code>docker run ubuntu</code>, for example, will automatically use as argument the<code>bash</code> keyword so that running the image will open by default the terminal to interact with it.
+   A similar behavior is also used for images of operative systems. The command <code>docker run ubuntu</code>, for example, will automatically use as argument the <code>bash</code> keyword so that running the image will open by default the terminal to interact with it.
 </p>
 
 <h2>Storing a container's data</h2>
 <p>
-   When data is generated by a container it exists only inside of itself. To store the generated data there are two interconnected ways: <i>volumes</i> and <b>bind mounts</b>. Bind mounts connect a file or directory of the container to the host machine and everything that happens into the file or directory of the container happens in the host machine file or folder too.
-   <br>
-   It uses the <code>-v</code> flag and accepts as argument a string that contains that path of both the local machine and container file or directory separated by a column. It is clearer with an example. Let's analyse the following image:
+   When data is generated by a container it exists only inside of itself. To store the generated data there are two interconnected ways: <i>volumes</i> and <b>bind mounts</b>. Bind mounts connect a file or directory of the container to the host machine and everything that happens into the file or directory of the container happens in the host machine file or folder too while a volume is a space managed by docker can be migrated and shared easily based on bind mounts. The <code>-v</code> flag accepts as argument a string that contains that path of both the local machine and container file or directory separated by a column and create a volume at the same time. It is clearer with an example. Let's analyse the following image:
 <pre><code>FROM alpine:3.13
 WORKDIR /app
 
@@ -332,13 +327,13 @@ CMD echo "text" >> file.txt && cat file.txt
       <li><code>:</code> separates the absolute path of the file on the host machine from the one in the container</li>
       <li><code>/app/file.txt</code> is the absolute path of the file in the container</li>
    </ol>
-   In the following image is possible to the result of running the container without using a volume and it simply outputs <code>text</code>. While using the <code>-v</code> flag the container's file and the one on the host machine are connected and everytime a new container gets run the content persists although the containers are different
+   In the following image is possible to see the result of running the container without using volumes and it simply outputs <code>text</code> while using the <code>-v</code> flag the container's file and the one on the host machine are connected and everytime a new container gets run the content persists although the containers will be different.
 </p>
 <span class="image">
    <img src="https://i.ibb.co/c3HvcW3/img5.png" alt="example usage of a docker valume using a file">
 </span>
 <p>
-   The same holds true for directories too, of course. If in the current directory you delete <code>file.txt</code> and bind mount the <code>/app</code> directory with the current every change that will happen in the current directory will be persisted. Although to mount to files they need to have the same name this is not true for directories.
+   The same holds true for directories too, of course. If in the current directory you delete <code>file.txt</code> and bind mount the <code>/app</code> directory with the current every change that will happen in the container's directory will persist. Although to mount to files they need to have the same name this is not true for directories.
 </p>
 <span class="image">
    <img src="https://i.ibb.co/xLK8N93/img6.png" alt="example usage of a docker valume using a directory">
@@ -351,7 +346,7 @@ docker: Error response from daemon: create $./file.txt: "$./file.txt" includes i
 
 <h2>Ports</h2>
 <p>
-   A running container can communicate using URLs and the most important is the address <code>127.0.0.1</code>, usally called <code>localhost</code>, and refers to the machine itself. This is important to know because by itself a container is simply a closed virtual space where code runs so if an application normally can be seen on localhost on a specific port if it runs in a container it will not communicate with the host machine by itself. Docker works with ports in two ways:
+   A running container can communicate using URLs and the most important is the address <code>127.0.0.1</code>, usally called <code>localhost</code>, that refers to the machine itself. This is important to know because by itself a container is simply a virtual space where code runs so if an application can normally be seen on localhost on a specific port if it runs in a container it will not communicate with the host machine. Docker works with ports in two ways:
    <dl>
       <dt>Exposing a port</dt>
       <dd>To expose a certain port means that the container is listening on that port. It is useful especially for manual configuration and happens in the <code>Dockerfile</code></dd>
@@ -373,7 +368,7 @@ RUN echo '{"message":"Hello"}' >> data.json
 
 CMD ["python", "-m", "http.server"]  
 </code></pre>
-   This code uses python to create a web server. It simply serves every file inside the current folder, in this case <code>/app</code>. By creating a json file with some data in it and it will be possible to receive the data when visiting the related url.
+   This code uses python to create a web server. It simply serves every file inside the current folder, in this case <code>/app</code>. By creating a json file with some data that will be then received when visiting the related url.
 </p>
 <span class="image">
    <img src="https://i.ibb.co/27Yv1zz/img7.png" alt="">
@@ -381,5 +376,5 @@ CMD ["python", "-m", "http.server"]
 
 <h2>Ending</h2>
 <p>
-   Docker is a foundamental part of general DevOps and although it might not be the tool that you'll be going to use the concepts of containers and virtualization are always the same and do not change between services. Containerization allows for an easier continous integration and continous deployment cycle but it still needs to be backed up by other practices to allow that everything runs as smooth as possible. Containers are a first but vital part of such processes.
+   Docker is a foundamental part of general DevOps and although it might not be the tool that you'll be going to use the concepts of containers and virtualization are always the same and do not change between services. Containerization allows for an easier continuous integration and continuous deployment cycle but it still needs to be backed up by other practices to allow that everything runs as smooth as possible. Containers are a first but vital part of such processes.
 </p>
